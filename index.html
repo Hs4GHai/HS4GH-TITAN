@@ -2,79 +2,87 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#070b14">
-<title>HS4GH TITAN | Institutional Trading Suite</title>
+<title>HS4GH TITAN | Gold Scalping Terminal</title>
 <style>
-:root{--bg:#070b14;--p:#0c1422;--p2:#101c2e;--p3:#16243a;--line:#22334b;--txt:#edf3fc;--muted:#8fa2bc;--blue:#67a4ff;--cyan:#52d7e5;--green:#3bd6a0;--red:#ff687e;--gold:#f1c66d;--shadow:0 18px 45px #0005}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -10%,#1b3761 0,transparent 32%),radial-gradient(ellipse at 5% 35%,#10243b 0,transparent 25%),var(--bg);color:var(--txt);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}
-button,select{font:inherit}.app{max-width:1600px;margin:auto;padding:18px 20px 44px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:8px 0 18px;border-bottom:1px solid #ffffff12}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-weight:950;font-size:21px;background:linear-gradient(140deg,#4b8ce0,#172e50);box-shadow:0 8px 28px #2462a855}.brand h1{font-size:18px;letter-spacing:2px;margin:0}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:1.5px;margin-top:4px}.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.chip{padding:8px 11px;border:1px solid var(--line);background:#0c1728;border-radius:30px;color:var(--muted);font-size:10px}.chip.demo{color:var(--green);border-color:#27644f;background:#0d2a23}.btn{border:1px solid #355e91;background:linear-gradient(135deg,#3268a8,#244b7b);color:white;border-radius:9px;padding:9px 13px;font-weight:700;font-size:11px;cursor:pointer}.btn.secondary{background:#14243a;border-color:var(--line);color:#d6e4f7}.btn:disabled{opacity:.5}
-.hero{display:flex;justify-content:space-between;align-items:end;gap:15px;padding:22px 0 16px}.eyebrow{font-size:9px;letter-spacing:2px;color:var(--cyan);font-weight:800}.hero h2{font-size:24px;margin:7px 0}.hero p{font-size:11px;color:var(--muted);margin:0;line-height:1.8}.heroRight{text-align:left;color:var(--muted);font-size:10px;line-height:1.9}
-.grid{display:grid;gap:11px}.metrics{grid-template-columns:repeat(5,minmax(0,1fr))}.panel{background:linear-gradient(155deg,#111e31f2,#0b1422f5);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow);min-width:0}.metric{padding:15px 16px;min-height:103px}.label{font-size:10px;color:var(--muted)}.value{font-size:23px;font-weight:850;margin-top:12px;direction:ltr;text-align:right}.hint{font-size:9px;color:#71859f;margin-top:5px}.main{grid-template-columns:minmax(0,1.7fr) minmax(270px,.7fr);margin-top:12px}.head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:14px 16px;border-bottom:1px solid #ffffff10}.head h3,.boxTitle{font-size:12px;margin:0}.muted{color:var(--muted);font-size:9px}.chart{padding:15px}.instrument{display:flex;justify-content:space-between;align-items:center;gap:10px}.instrument strong{font-size:14px}.price{font-size:20px;font-weight:850;direction:ltr}.tf{display:flex;gap:5px;margin:12px 0}.tf button{background:#14243a;border:1px solid transparent;color:var(--muted);border-radius:6px;padding:6px 10px;font-size:9px}.tf button.active{color:#d9eaff;border-color:#4c7fbd;background:#1b3453}.chartPlaceholder{height:195px;border:1px dashed #2b405d;border-radius:11px;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:10px;line-height:1.9;padding:15px;background:linear-gradient(180deg,#10223a55,#0a162655)}
-.side{padding:15px}.side h3{font-size:12px;margin:0 0 12px}.stat{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid #ffffff0e;font-size:10px}.stat:last-child{border:0}.state{font-weight:750;color:var(--gold)}.ok{color:var(--green)}.bad{color:var(--red)}
-.lower{grid-template-columns:minmax(0,1.4fr) minmax(300px,.8fr);margin-top:12px}.tablewrap{overflow:auto;padding:0 13px 12px}table{border-collapse:collapse;width:100%;min-width:620px}th,td{text-align:right;padding:11px 8px;border-bottom:1px solid #ffffff0d;font-size:10px;white-space:nowrap}th{color:var(--muted);font-weight:600}td{color:#dce7f5}.buy{color:var(--green)}.sell{color:var(--red)}
-.marketPanel{margin-top:12px}.marketControls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.marketControls select{background:#13243a;color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:10px}.markets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:13px}.market{background:#0d192a;border:1px solid #223650;border-radius:10px;padding:11px;min-width:0}.marketTop{display:flex;justify-content:space-between;gap:5px;font-size:11px;font-weight:800}.market .desc{font-size:9px;color:var(--muted);margin-top:5px}.market .quote{font-size:10px;color:var(--gold);margin-top:9px}.market .feed{font-size:8px;color:#71859f;margin-top:4px}
-.signalList{padding:0 15px 12px}.sig{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #ffffff0e;font-size:10px}.sig:last-child{border:0}.tag{font-size:9px;padding:5px 7px;border-radius:6px;background:#1b2d46;color:#b9cce2}.warning{margin-top:13px;border:1px solid #6c552d;background:#2b2417;color:#f1d99e;border-radius:12px;padding:12px 14px;font-size:10px;line-height:1.9}.footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:#6e829c;font-size:9px;margin-top:16px}
-@media(max-width:1050px){.metrics{grid-template-columns:repeat(3,1fr)}.main,.lower{grid-template-columns:1fr}.markets{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:650px){.app{padding:12px 10px 30px}.top{align-items:flex-start}.brand h1{font-size:15px}.hero{align-items:flex-start;flex-direction:column}.heroRight{text-align:right}.metrics{grid-template-columns:repeat(2,1fr)}.value{font-size:20px}.markets{grid-template-columns:repeat(2,1fr)}.actions{justify-content:flex-end}.chip{font-size:9px;padding:7px 8px}}
+:root{--bg:#080d16;--panel:#101a29;--panel2:#142238;--line:#22344b;--text:#edf3fb;--muted:#8da1bb;--gold:#e5b84e;--green:#28d49a;--red:#ff647c;--blue:#6da9ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(1000px 500px at 80% -10%,#1c3150 0%,transparent 65%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1500px;margin:auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 18px;border:1px solid var(--line);border-radius:18px;background:#0d1725eF}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:43px;height:43px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,#f5d477,#9a6c20);color:#111;font-weight:950;font-size:22px;box-shadow:0 8px 28px #d6a63b30}.brand h1{font-size:18px;letter-spacing:1.6px;margin:0}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:1.3px;margin-top:4px}.topright{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.pill{border:1px solid var(--line);padding:8px 11px;border-radius:30px;font-size:11px;color:var(--muted)}.pill.demo{color:var(--green);border-color:#1d725b;background:#0e2b25}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:6px}
+.btn{border:1px solid var(--line);background:#17263a;color:var(--text);padding:10px 14px;border-radius:10px;font-size:12px}.btn:hover{border-color:var(--gold)}.btn.primary{background:linear-gradient(120deg,#e9c05b,#a97827);color:#16120a;border:0;font-weight:800}.btn.danger{background:#351b28;border-color:#713348;color:#ff9cad}
+.hero{display:flex;justify-content:space-between;align-items:end;gap:20px;padding:25px 5px 18px}.eyebrow{color:var(--gold);font-size:10px;letter-spacing:2px}.hero h2{font-size:26px;margin:7px 0}.hero p{margin:0;color:var(--muted);font-size:12px}.clock{text-align:left;color:var(--muted);font-size:11px;line-height:1.9}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric,.card{background:linear-gradient(145deg,#111d2d,#0d1725);border:1px solid var(--line);border-radius:16px}.metric{padding:16px}.metric label{color:var(--muted);font-size:11px}.metric strong{display:block;font-size:24px;margin-top:9px;letter-spacing:.3px}.metric small{color:var(--muted);font-size:10px}
+.layout{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(280px,.75fr);gap:13px;margin-top:13px}.card{padding:16px;min-width:0}.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}.head h3{font-size:13px;margin:0}.tag{font-size:10px;color:var(--gold);border:1px solid #69552c;background:#2b2416;padding:5px 8px;border-radius:7px}
+.chartwrap{height:550px;overflow:hidden;border-radius:12px;border:1px solid var(--line);background:#0b1420}.tradingview-widget-container,.tradingview-widget-container__widget{height:100%;width:100%}
+.charttools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:11px}.charttools select{background:#132238;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:8px}
+.stack{display:grid;gap:12px}.field{display:grid;gap:6px}.field label{font-size:10px;color:var(--muted)}.field input,.field select{width:100%;background:#0b1523;color:var(--text);border:1px solid var(--line);padding:10px;border-radius:9px;outline:none}.field input:focus,.field select:focus{border-color:var(--gold)}.two{display:grid;grid-template-columns:1fr 1fr;gap:9px}.settinggrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.statusbox{padding:12px;border:1px solid var(--line);border-radius:11px;background:#0b1523;color:var(--muted);font-size:11px;line-height:1.8}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.actions .btn{width:100%}
+.bottom{display:grid;grid-template-columns:1.3fr .7fr;gap:13px;margin-top:13px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:620px}th,td{padding:11px 8px;border-bottom:1px solid #24364b;text-align:right;font-size:10px;white-space:nowrap}th{color:var(--muted);font-weight:600}td{color:#dce7f5}.empty{text-align:center;color:var(--muted);padding:22px}.positive{color:var(--green)}.negative{color:var(--red)}.notice{border:1px solid #70592d;background:#292315;color:#e9d7a8;padding:12px;border-radius:11px;font-size:10px;line-height:1.9;margin-top:12px}.footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#627791;font-size:9px;padding:18px 4px}
+@media(max-width:950px){.layout,.bottom{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.chartwrap{height:470px}}
+@media(max-width:520px){.app{padding:10px}.hero{padding:19px 3px 14px}.hero h2{font-size:21px}.metrics{gap:8px}.metric{padding:12px}.metric strong{font-size:20px}.chartwrap{height:420px}.clock{display:none}.card{padding:12px}}
 </style>
 </head>
-<body><div class="app">
+<body><main class="app">
 <header class="top">
- <div class="brand"><div class="logo">T</div><div><h1>HS4GH TITAN</h1><small>INSTITUTIONAL-STYLE DEMO TRADING SUITE</small></div></div>
- <div class="actions"><span class="chip demo">● DEMO ONLY</span><span class="chip" id="connection">● API CHECKING</span><button class="btn" id="refresh">تحديث البيانات ↻</button></div>
+ <div class="brand"><div class="logo">T</div><div><h1>HS4GH TITAN</h1><small>GOLD SCALPING COMMAND CENTER</small></div></div>
+ <div class="topright"><span class="pill demo"><i class="dot"></i> DEMO ONLY</span><span class="pill" id="connection"><i class="dot" style="background:#e5b84e"></i> جاري فحص الخادم</span><button class="btn" id="refresh">تحديث البيانات ↻</button></div>
 </header>
-<section class="hero"><div><div class="eyebrow">COMMAND CENTER / VERSION 2</div><h2>مركز التداول والتحليل</h2><p>مراقبة الحساب التجريبي، سجل الصفقات، وأدوات متابعة أسواق الفوركس والذهب والعملات الرقمية.</p></div><div class="heroRight">البيئة: DEMO ONLY<br>السوق الأساسي المتصل حالياً: XAUUSD<br>آخر تحديث: <span id="updated">—</span></div></section>
-<section class="grid metrics">
- <div class="panel metric"><div class="label">BALANCE · الرصيد</div><div class="value" id="balance">—</div><div class="hint">USD · Demo account</div></div>
- <div class="panel metric"><div class="label">EQUITY · حقوق الحساب</div><div class="value" id="equity">—</div><div class="hint">Server-reported equity</div></div>
- <div class="panel metric"><div class="label">OPEN TRADES · صفقات مفتوحة</div><div class="value" id="openCount">—</div><div class="hint">Paper positions</div></div>
- <div class="panel metric"><div class="label">OPEN P/L · الربح العائم</div><div class="value" id="openPnl">—</div><div class="hint">USD · recorded P/L</div></div>
- <div class="panel metric"><div class="label">TOTAL TRADES · إجمالي السجل</div><div class="value" id="totalTrades">—</div><div class="hint">Recent trade records</div></div>
+<section class="hero"><div><div class="eyebrow">TITAN / XAUUSD / AUTOMATED PAPER TRADING</div><h2>مركز قيادة سكالبينغ الذهب</h2><p>شارت TradingView مباشر، إعدادات البوت، ومتابعة الصفقات التجريبية من لوحة واحدة.</p></div><div class="clock"><div id="date">—</div><strong id="time">—</strong></div></section>
+<section class="metrics">
+ <div class="metric"><label>رصيد DEMO</label><strong id="balance">—</strong><small>USD · من خادم TITAN</small></div>
+ <div class="metric"><label>حقوق الحساب</label><strong id="equity">—</strong><small>Equity</small></div>
+ <div class="metric"><label>الصفقات المفتوحة</label><strong id="openCount">—</strong><small>Open positions</small></div>
+ <div class="metric"><label>حالة البوت</label><strong id="botState" style="font-size:18px">غير متصل</strong><small id="botSub">بانتظار الاتصال</small></div>
 </section>
-<section class="grid main">
- <article class="panel"><div class="head"><h3>مخطط السوق · MARKET WORKSPACE</h3><span class="muted">لا نعرض أسعاراً غير موصولة</span></div><div class="chart">
-  <div class="instrument"><div><strong id="selectedSymbol">XAUUSD · GOLD</strong><div class="muted">Market selected · Feed status shown below</div></div><div class="price" id="selectedPrice">غير متصل</div></div>
-  <div class="tf"><button class="active">M1</button><button>M5</button><button>M15</button><button>H1</button><button>H4</button><button>D1</button></div>
-  <div class="chartPlaceholder">منطقة الرسم البياني الاحترافية<br>سيظهر مخطط الشموع عند ربط مسار OHLC لكل رمز في محرك البيانات.<br>لا توجد بيانات سعرية حية مزيفة في هذه النسخة.</div>
- </div></article>
- <aside class="panel side"><h3>صحة النظام · SYSTEM HEALTH</h3>
-  <div class="stat"><span>Cloudflare Worker</span><b class="state" id="worker">Checking</b></div>
-  <div class="stat"><span>D1 database/API</span><b class="state" id="db">Checking</b></div>
-  <div class="stat"><span>Trading mode</span><b class="state ok">DEMO ONLY</b></div>
-  <div class="stat"><span>Scheduled analysis</span><b class="state">Needs log verification</b></div>
-  <div class="stat"><span>Auto execution</span><b class="state">Paper engine only</b></div>
-  <div class="stat"><span>Risk controls</span><b class="state">Verify before scaling</b></div>
+<section class="layout">
+ <article class="card">
+  <div class="head"><h3>LIVE MARKET CHART · XAUUSD</h3><span class="tag">TRADINGVIEW</span></div>
+  <div class="charttools"><span class="pill">XAUUSD · GOLD</span><span class="pill">1 MINUTE SCALPING</span><span class="pill">TradingView data/widget</span></div>
+  <div class="chartwrap"><div class="tradingview-widget-container">
+   <div class="tradingview-widget-container__widget"></div>
+   <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+   {"autosize":true,"symbol":"OANDA:XAUUSD","interval":"1","timezone":"Asia/Baghdad","theme":"dark","style":"1","locale":"en","enable_publishing":false,"allow_symbol_change":true,"calendar":false,"support_host":"https://www.tradingview.com"}
+   </script>
+  </div></div>
+  <div class="notice">الشارت مضمّن من TradingView. السعر المعروض تابع لمصدر OANDA داخل TradingView وقد يختلف عن سعر وسيطك. لا نستخدم بيانات وهمية.</div>
+ </article>
+ <aside class="stack">
+  <article class="card">
+   <div class="head"><h3>إعدادات بوت السكالبينغ</h3><span class="tag">PAPER ENGINE</span></div>
+   <div class="settinggrid">
+    <div class="field"><label>الرمز</label><input value="XAUUSD · GOLD" readonly></div>
+    <div class="field"><label>نوع الاستراتيجية</label><input value="Scalping" readonly></div>
+    <div class="field"><label>Take Profit · حركة السعر</label><input id="tp" type="number" value="0.30" step="0.01"></div>
+    <div class="field"><label>Stop Loss · حركة السعر</label><input id="sl" type="number" value="0.30" step="0.01"></div>
+    <div class="field"><label>الهدف التشغيلي / دقيقة</label><input value="5 صفقات" readonly></div>
+    <div class="field"><label>حجم اللوت</label><input id="lot" type="number" value="0.01" min="0.01" step="0.01"></div>
+   </div>
+   <div class="statusbox" style="margin-top:11px">الهدف التشغيلي: محاولة إنشاء حتى 5 صفقات تجريبية بالدقيقة. قد لا تتوفر فرص أو قد تمنعها حدود المحرك. لا يوجد ضمان لعدد ثابت من الصفقات أو للربح.</div>
+   <div class="actions" style="margin-top:11px"><button class="btn primary" id="start">تشغيل البوت DEMO</button><button class="btn danger" id="stop">إيقاف البوت</button></div>
+   <button class="btn" id="sync" style="width:100%;margin-top:8px">مزامنة حالة المحرك</button>
+   <div class="statusbox" id="message" style="margin-top:10px">لم يتم التحقق من اتصال المحرك بعد.</div>
+  </article>
+  <article class="card">
+   <div class="head"><h3>مواصفات التنفيذ</h3><span class="tag">CONFIG</span></div>
+   <div class="two"><div class="statusbox">TP<br><strong style="color:var(--green)">+0.30</strong></div><div class="statusbox">SL<br><strong style="color:var(--red)">−0.30</strong></div></div>
+   <div class="statusbox" style="margin-top:9px">البيئة: DEMO داخلي فقط<br>الأداة: الذهب XAUUSD<br>الأسلوب: صفقات قصيرة وسريعة<br>الشارت: TradingView</div>
+  </article>
  </aside>
 </section>
-<section class="panel marketPanel">
- <div class="head"><h3>مراقبة الأسواق · MARKET WATCH</h3><div class="marketControls"><select id="marketFilter"><option value="all">كل الأسواق</option><option value="forex">Forex</option><option value="metal">Metals</option><option value="crypto">Crypto</option></select><span class="muted">الأزواج المعروضة Watchlist فقط</span></div></div>
- <div class="markets" id="markets"></div>
+<section class="bottom">
+ <article class="card"><div class="head"><h3>سجل الصفقات التجريبية</h3><span class="tag" id="tradeTotal">0 صفقة</span></div><div class="tablewrap"><table><thead><tr><th>الرمز</th><th>الاتجاه</th><th>اللوت</th><th>الدخول</th><th>SL</th><th>TP</th><th>الحالة</th><th>P/L</th></tr></thead><tbody id="trades"><tr><td colspan="8" class="empty">بانتظار بيانات الصفقات</td></tr></tbody></table></div></article>
+ <article class="card"><div class="head"><h3>حالة النظام</h3><span class="tag">SYSTEM HEALTH</span></div><div class="stack"><div class="statusbox" id="workerHealth">Cloudflare Worker: لم يتم الفحص</div><div class="statusbox">TradingView: مضمّن داخل الشارت</div><div class="statusbox">التنفيذ: محاكاة داخلية فقط، ليس MT5 ولا JustMarkets</div><div class="statusbox">ملاحظة: تغيير TP/SL/اللوت هنا لا يغيّر إعدادات الخادم إلا إذا دعم الـ API ذلك صراحةً.</div></div></article>
 </section>
-<section class="grid lower">
- <article class="panel"><div class="head"><h3>دفتر الصفقات · TRADE BOOK</h3><span class="muted" id="tradeCount">—</span></div><div class="tablewrap"><table><thead><tr><th>الرمز</th><th>الاتجاه</th><th>الحجم</th><th>الدخول</th><th>SL</th><th>TP</th><th>الحالة</th><th>P/L</th></tr></thead><tbody id="trades"><tr><td colspan="8" style="text-align:center;color:#8fa2bc">جاري جلب البيانات...</td></tr></tbody></table></div></article>
- <article class="panel"><div class="head"><h3>نطاق التطوير · ENGINE ROADMAP</h3><span class="muted">Next milestones</span></div><div class="signalList">
-  <div class="sig"><span>XAUUSD feed</span><span class="tag">Connected previously</span></div>
-  <div class="sig"><span>Major Forex pairs</span><span class="tag">Watchlist added · feed pending</span></div>
-  <div class="sig"><span>ICT / SMC multi-timeframe</span><span class="tag">Not implemented yet</span></div>
-  <div class="sig"><span>Trade lifecycle / SL-TP</span><span class="tag">Must verify</span></div>
-  <div class="sig"><span>5 trades per minute</span><span class="tag">Not enabled</span></div>
-  <div class="sig"><span>BTC / crypto feed</span><span class="tag">Separate feed required</span></div>
- </div></article>
-</section>
-<div class="warning"><b>شفافية مهمة:</b> تمت إضافة أزواج الفوركس إلى قائمة المراقبة في الواجهة، لكن محرك Worker الحالي الذي اختبرناه كان يجلب XAUUSD فقط. إضافة الأزواج بصرياً لا تجعل أسعارها حية ولا تجعل البوت يتداولها. يلزم توسيع مزود البيانات والكود الخلفي، وإضافة فلاتر مخاطر واختبارات لكل زوج. لم يتم تفعيل هدف خمس صفقات بالدقيقة؛ لا ينبغي فرض عدد صفقات ثابت إذا لم توجد فرص مستقلة صالحة.</div>
-<footer class="footer"><span>HS4GH TITAN · PROFESSIONAL DEMO TERMINAL</span><span>Frontend only · API reads only · No broker orders</span></footer>
-</div>
+<footer class="footer"><span>HS4GH TITAN · GOLD SCALPING TERMINAL · DEMO ONLY</span><span>TradingView chart · Cloudflare Worker API · No live broker connection</span></footer>
+</main>
 <script>
-const API="https://hs4gh-titan-bot.housammt5.workers.dev", $=id=>document.getElementById(id);
-const fmt=n=>Number.isFinite(Number(n))?Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}):"—";
-const get=(o,ks,d=null)=>{for(const k of ks)if(o&&o[k]!==undefined&&o[k]!==null)return o[k];return d};
-const watch=[
- ["EURUSD","Euro / US Dollar","forex"],["GBPUSD","British Pound / US Dollar","forex"],["USDJPY","US Dollar / Japanese Yen","forex"],["USDCHF","US Dollar / Swiss Franc","forex"],["AUDUSD","Australian Dollar / US Dollar","forex"],["USDCAD","US Dollar / Canadian Dollar","forex"],["NZDUSD","New Zealand Dollar / US Dollar","forex"],["EURJPY","Euro / Japanese Yen","forex"],["GBPJPY","British Pound / Japanese Yen","forex"],["EURGBP","Euro / Pound Sterling","forex"],["XAUUSD","Gold / US Dollar","metal"],["XAGUSD","Silver / US Dollar","metal"],["BTCUSD","Bitcoin / US Dollar","crypto"],["ETHUSD","Ethereum / US Dollar","crypto"]];
-function renderMarkets(){let f=$("marketFilter").value;let a=watch.filter(x=>f==="all"||x[2]===f);$("markets").innerHTML=a.map(x=>`<div class="market"><div class="marketTop"><span>${x[0]}</span><span class="muted">${x[2].toUpperCase()}</span></div><div class="desc">${x[1]}</div><div class="quote">Feed not connected</div><div class="feed">Watchlist · price unavailable</div></div>`).join("")}
-async function api(path){let r=await fetch(API+path,{headers:{Accept:"application/json"},cache:"no-store"});let j={};try{j=await r.json()}catch{}if(!r.ok||j.success===false)throw Error(j.error||"HTTP "+r.status);return j}
-function rowsOf(x){if(Array.isArray(x))return x;for(let k of ["trades","positions","data","results"])if(Array.isArray(x?.[k]))return x[k];return []}
-function renderTrades(rs){$("tradeCount").textContent=rs.length+" records";$("totalTrades").textContent=rs.length;if(!rs.length){$("trades").innerHTML='<tr><td colspan="8" style="text-align:center;color:#8fa2bc">لا توجد صفقات مسجلة</td></tr>';return}
-$("trades").innerHTML=rs.slice(0,40).map(t=>{let s=String(get(t,["side","type"],"—")).toUpperCase();return `<tr><td>${get(t,["symbol"],"—")}</td><td class="${s==="BUY"?"buy":s==="SELL"?"sell":""}">${s}</td><td>${get(t,["lot","volume"],"—")}</td><td>${fmt(get(t,["entry","open_price"]))}</td><td>${fmt(get(t,["stop_loss","sl"]))}</td><td>${fmt(get(t,["take_profit","tp"]))}</td><td>${get(t,["status"],"—")}</td><td>${fmt(get(t,["pnl","profit"],0))}</td></tr>`}).join("")}
-async function refresh(){let b=$("refresh");b.disabled=true;try{let [a,t]=await Promise.all([api("/api/account"),api("/api/trades")]);let ac=a.account||a.data||a,bal=get(ac,["balance","Balance"]);$("balance").textContent=fmt(bal);$("equity").textContent=fmt(get(ac,["equity","Equity"],bal));let rs=rowsOf(t),op=rs.filter(x=>String(x.status||"").toUpperCase()==="OPEN");$("openCount").textContent=op.length;$("openPnl").textContent=fmt(op.reduce((n,x)=>n+(Number(x.pnl)||0),0));renderTrades(rs);$("connection").textContent="● API CONNECTED";$("connection").style.color="#3bd6a0";$("worker").textContent="Connected";$("worker").className="state ok";$("db").textContent="API responded";$("db").className="state ok"}catch(e){$("connection").textContent="● API ERROR";$("connection").style.color="#ff687e";$("worker").textContent="Unavailable";$("worker").className="state bad";$("db").textContent=e.message;$("db").className="state bad";$("trades").innerHTML=`<tr><td colspan="8" style="text-align:center;color:#ff8794">${e.message}</td></tr>`;$("balance").textContent="—";$("equity").textContent="—";$("openCount").textContent="—";$("openPnl").textContent="—";$("totalTrades").textContent="—"}$("updated").textContent=new Date().toLocaleTimeString("ar-IQ");b.disabled=false}
-$("refresh").addEventListener("click",refresh);$("marketFilter").addEventListener("change",renderMarkets);renderMarkets();refresh();setInterval(refresh,30000);
+const API='https://hs4gh-titan-bot.housammt5.workers.dev', $=id=>document.getElementById(id);
+const fmt=x=>Number.isFinite(Number(x))?Number(x).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';
+async function req(path,opts={}){const r=await fetch(API+path,{...opts,headers:{'content-type':'application/json',...(opts.headers||{})},cache:'no-store'});let j={};try{j=await r.json()}catch{}if(!r.ok||j.success===false)throw Error(j.error||('HTTP '+r.status));return j}
+function rowsOf(j){if(Array.isArray(j))return j;for(const k of ['trades','positions','data','results'])if(Array.isArray(j?.[k]))return j[k];return []}
+function renderTrades(list){$('tradeTotal').textContent=list.length+' سجل';$('trades').innerHTML=list.length?list.slice(0,40).map(t=>{const s=String(t.side||t.type||'—').toUpperCase();return `<tr><td>${t.symbol||'—'}</td><td class="${s==='BUY'?'positive':s==='SELL'?'negative':''}">${s}</td><td>${t.lot??'—'}</td><td>${fmt(t.entry)}</td><td>${fmt(t.stop_loss??t.sl)}</td><td>${fmt(t.take_profit??t.tp)}</td><td>${t.status||'—'}</td><td>${fmt(t.pnl??0)}</td></tr>`}).join(''):'<tr><td colspan="8" class="empty">لا توجد صفقات مسجلة</td></tr>'}
+async function refresh(){try{const [a,t]=await Promise.all([req('/api/account'),req('/api/trades')]);const acc=a.account||a.data||a;const bal=acc.balance??a.balance; $('balance').textContent=fmt(bal);$('equity').textContent=fmt(acc.equity??a.equity??bal);const list=rowsOf(t);$('openCount').textContent=list.filter(x=>String(x.status||'').toUpperCase()==='OPEN').length;renderTrades(list);$('connection').innerHTML='<i class="dot"></i> الخادم متصل';$('workerHealth').textContent='Cloudflare Worker: API account/trades responding';$('message').textContent='تم جلب الحساب وسجل الصفقات من الخادم.'}catch(e){$('connection').innerHTML='<i class="dot" style="background:#ff647c"></i> تعذر الاتصال';$('workerHealth').textContent='Cloudflare Worker: '+e.message;$('message').textContent='تعذر جلب البيانات: '+e.message}}
+async function sync(){try{const s=await req('/api/status');const enabled=!!(s.autoEnabled??s.enabled);$('botState').textContent=enabled?'يعمل DEMO':'متوقف';$('botState').style.color=enabled?'var(--green)':'var(--muted)';$('botSub').textContent=s.cronConfigured?'الجدولة مهيأة':'تحقق من Cron';$('message').textContent='تم تحديث حالة المحرك: '+(enabled?'البوت مفعّل':'البوت متوقف');await refresh()}catch(e){$('botState').textContent='غير مؤكد';$('botSub').textContent='تعذر قراءة حالة المحرك';$('message').textContent='مسار /api/status غير متاح أو فشل الاتصال: '+e.message}}
+async function setBot(enabled){try{await req('/api/bot',{method:'POST',body:JSON.stringify({enabled,mode:'DEMO_ONLY',symbol:'XAUUSD',take_profit:Number($('tp').value),stop_loss:Number($('sl').value),lot:Number($('lot').value),target_trades_per_minute:5})});$('message').textContent=enabled?'تم إرسال طلب تشغيل DEMO إلى الخادم.':'تم إرسال طلب إيقاف DEMO إلى الخادم.';await sync()}catch(e){$('message').textContent='لم يتم تغيير حالة البوت: '+e.message}}
+$('refresh').onclick=refresh;$('sync').onclick=sync;$('start').onclick=()=>setBot(true);$('stop').onclick=()=>setBot(false);
+function tick(){const d=new Date();$('date').textContent=d.toLocaleDateString('en-GB',{weekday:'long',year:'numeric',month:'short',day:'numeric'});$('time').textContent=d.toLocaleTimeString('en-GB',{hour12:false})}
+tick();setInterval(tick,1000);refresh();sync();setInterval(refresh,30000);
 </script></body></html>
