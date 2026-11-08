@@ -30,11 +30,12 @@ button{font:inherit;cursor:pointer}.shell{display:grid;grid-template-columns:246
     <button data-page="council"><span class="ico">◎</span><span>Titan Council</span></button>
     <button data-page="risk"><span class="ico">⛨</span><span>Risk Center</span></button>
     <button data-page="activity"><span class="ico">≋</span><span>Activity Log</span></button>
+    <button data-page="settings"><span class="ico">⚙</span><span>TITAN COMMAND</span></button>
   </nav></div>
   <div class="side-bottom"><small>PLATFORM STATUS</small><div class="server"><i class="dot"></i> Demo interface online</div></div>
 </aside>
 <main class="main">
-<header class="top"><div><div class="eyebrow">GOLD INTELLIGENCE / COMMAND</div><h1 id="pageTitle">Command Center</h1></div><div class="top-right"><div class="pill">● DEMO MODE</div><div class="pill">XAUUSD</div><div class="admin"><div class="avatar">A</div><span style="font-size:11px;color:#c7cbd2">Admin</span></div></div></header>
+<header class="top"><div><div class="eyebrow">GOLD + BITCOIN INTELLIGENCE / COMMAND</div><h1 id="pageTitle">Command Center</h1></div><div class="top-right"><div class="pill">● DEMO MODE</div><div class="pill">XAUUSD</div><div class="admin"><div class="avatar">A</div><span style="font-size:11px;color:#c7cbd2">Admin</span></div></div></header>
 <div class="notice">Prototype mode: dashboard interactions use simulated market data. No broker account is connected and no live orders can be placed.</div>
 <section class="page active" id="overview">
   <div class="hero"><div><div class="eyebrow">AUTONOMOUS GOLD TRADING INTELLIGENCE</div><h2>One Brain. <span class="gold">100 Agents.</span></h2><p>Monitor the four intelligence departments, review their evidence, and coordinate every decision from one private command center.</p></div><div class="hero-actions"><button class="btn" id="startBtn">▶ START SYSTEM</button><button class="btn secondary" id="analyzeBtn">⌕ ANALYZE NOW</button></div></div>
@@ -65,11 +66,39 @@ button{font:inherit;cursor:pointer}.shell{display:grid;grid-template-columns:246
   </div></div>
 </section>
 <section class="page" id="agents"><div class="card"><div class="card-head"><h3>100 SPECIALIZED AGENTS</h3><span class="sub">Four departments · unified report schema</span></div><div class="toolbar"><input id="agentSearch" placeholder="Search agents…"><select id="deptFilter"><option value="all">All departments</option><option value="NEWS">📢 News</option><option value="CHART">🧐 Chart</option><option value="RISK">⚠️ Risk</option><option value="COUNCIL">👥 Council</option></select></div><div style="overflow:auto;margin-top:14px"><table class="table"><thead><tr><th>AGENT ID</th><th>NAME</th><th>DEPARTMENT</th><th>STATE</th><th>ROLE</th></tr></thead><tbody id="agentTable"></tbody></table></div></div></section>
-<section class="page" id="analysis"><div class="card"><div class="card-head"><h3>MARKET ANALYSIS WORKSPACE</h3><span class="sub">XAUUSD · M1 / M5 / M15 / H1</span></div><div class="notice">No live feed connected. This workspace is a UI preview until a market-data provider and backend service are configured.</div><div class="toolbar"><select><option>XAUUSD</option></select><select><option>M15</option><option>M1</option><option>M5</option><option>H1</option></select><button class="btn" id="analysisPageBtn">RUN ANALYSIS</button></div><div style="padding:35px 10px;text-align:center;color:#9298a5"><div style="font-size:38px;color:var(--gold)">⌁</div><h3>Awaiting market data</h3><p>Connect a trusted XAUUSD feed to populate candles, indicators, news context and agent evidence.</p></div></div></section>
-<section class="page" id="council"><div class="card"><div class="card-head"><h3>TITAN COUNCIL</h3><span class="sub">Weighted voting engine</span></div><div class="notice">The vote below is illustrative. Production voting must use calibrated, out-of-sample agent reliability and deduplicate correlated evidence.</div><div class="vote"><div class="vote-row"><b class="green">BUY</b><div class="vote-track"><i style="width:58%;background:#48c99a"></i></div><b>58%</b></div><div class="vote-row"><b class="red">SELL</b><div class="vote-track"><i style="width:27%;background:#ef7272"></i></div><b>27%</b></div><div class="vote-row"><b>WAIT</b><div class="vote-track"><i style="width:15%;background:#8b94a4"></i></div><b>15%</b></div></div><div class="vote-foot" style="margin-top:18px"><span>Decision threshold</span><b class="gold">75% (provisional)</b></div></div></section>
-<section class="page" id="risk"><div class="card"><div class="card-head"><h3>RISK CENTER</h3><span class="tag">HARD VETO ENABLED IN DESIGN</span></div><div class="notice">Risk limits are not configured yet. No order execution is available in this prototype.</div><div class="stats"><div class="stat"><div class="stat-head">RISK PER TRADE</div><strong>—</strong><small>Awaiting owner approval</small></div><div class="stat"><div class="stat-head">DAILY LOSS LIMIT</div><strong>—</strong><small>Not configured</small></div><div class="stat"><div class="stat-head">MAX OPEN POSITIONS</div><strong>—</strong><small>Not configured</small></div><div class="stat"><div class="stat-head">EMERGENCY STOP</div><strong class="green">ARMED</strong><small>UI state only</small></div></div></div></section>
+<section class="page" id="analysis"><div class="card"><div class="card-head"><h3>MARKET ANALYSIS WORKSPACE</h3><span class="sub">XAUUSD + BTCUSD · M1 / M5 / M15 / H1</span></div><div class="notice">PAPER TRADING DESIGN · XAUUSD + BTCUSD. No live feed or backend is connected yet; displayed market data must not be treated as live.</div><div class="toolbar"><select><option>XAUUSD</option><option>BTCUSD</option></select><select><option>M15</option><option>M1</option><option>M5</option><option>H1</option></select><button class="btn" id="analysisPageBtn">RUN ANALYSIS</button></div><div style="padding:35px 10px;text-align:center;color:#9298a5"><div style="font-size:38px;color:var(--gold)">⌁</div><h3>Awaiting market data</h3><p>Connect a trusted XAUUSD feed to populate candles, indicators, news context and agent evidence.</p></div></div></section>
+<section class="page" id="council"><div class="card"><div class="card-head"><h3>TITAN COUNCIL</h3><span class="sub">Weighted voting engine</span></div><div class="notice">The vote below is illustrative only. Target consensus threshold: 85%, with mandatory Risk Engine approval. Production voting must use calibrated reliability and deduplicate correlated evidence.</div><div class="vote"><div class="vote-row"><b class="green">BUY</b><div class="vote-track"><i style="width:58%;background:#48c99a"></i></div><b>58%</b></div><div class="vote-row"><b class="red">SELL</b><div class="vote-track"><i style="width:27%;background:#ef7272"></i></div><b>27%</b></div><div class="vote-row"><b>WAIT</b><div class="vote-track"><i style="width:15%;background:#8b94a4"></i></div><b>15%</b></div></div><div class="vote-foot" style="margin-top:18px"><span>Decision threshold</span><b class="gold">85% (owner-approved design)</b></div></div></section>
+<section class="page" id="risk"><div class="card"><div class="card-head"><h3>RISK CENTER</h3><span class="tag">HARD VETO ENABLED IN DESIGN</span></div><div class="notice">Configured design: 0.5% risk per trade ($125 at $25,000), shared daily loss cap 3% ($750), maximum 5 open positions across XAUUSD and BTCUSD. Paper trading only; no execution engine is connected.</div><div class="stats"><div class="stat"><div class="stat-head">RISK PER TRADE</div><strong>—</strong><small>Awaiting owner approval</small></div><div class="stat"><div class="stat-head">DAILY LOSS LIMIT</div><strong>—</strong><small>Not configured</small></div><div class="stat"><div class="stat-head">MAX OPEN POSITIONS</div><strong>—</strong><small>Not configured</small></div><div class="stat"><div class="stat-head">EMERGENCY STOP</div><strong class="green">ARMED</strong><small>UI state only</small></div></div></div></section>
+<section class="page" id="settings"><div class="card">
+<div class="card-head"><h3>TITAN COMMAND · SUPER ADMIN SETTINGS</h3><span class="tag idle">DESIGN PREVIEW</span></div>
+<div class="notice">These are the approved project settings shown in this prototype. Saving here only changes this browser preview; secure server-side settings and authentication are not implemented yet.</div>
+<div class="stats">
+<div class="stat"><div class="stat-head">PAPER BALANCE</div><strong>$25,000</strong><small>Virtual starting equity</small></div>
+<div class="stat"><div class="stat-head">RISK / TRADE</div><strong>0.5%</strong><small>$125 planned risk at start balance</small></div>
+<div class="stat"><div class="stat-head">DAILY LOSS CAP</div><strong>$750</strong><small>3% shared across both assets</small></div>
+<div class="stat"><div class="stat-head">MAX OPEN TRADES</div><strong>5</strong><small>Combined XAUUSD + BTCUSD</small></div>
+</div>
+<div class="grid">
+<div class="card"><div class="card-head"><h3>MARKETS & EXECUTION</h3></div>
+<p class="sub">Enabled symbols</p><p><span class="tag">XAUUSD</span> <span class="tag">BTCUSD</span></p>
+<p class="sub">Trading mode</p><b>PAPER TRADING ONLY</b>
+<p class="sub" style="margin-top:12px">Monitoring target</p><b>Every 5 minutes · 24/7 server worker planned</b>
+<p class="sub" style="margin-top:12px">News policy</p><b>Trade during high-impact news only after deeper event and market-reaction analysis</b>
+</div>
+<div class="card"><div class="card-head"><h3>SAFETY GATES</h3></div>
+<ul style="color:#c6cad2;line-height:2;padding-left:18px">
+<li>85% consensus threshold target</li><li>Risk Engine approval is mandatory</li><li>Fresh market data required</li><li>Entry, stop-loss and take-profit required</li><li>Shared daily loss cap stops new entries</li><li>Smart Hedging with total exposure checks</li>
+</ul></div>
+</div>
+<div class="card" style="margin-top:14px"><div class="card-head"><h3>OWNER CONTROLS · LOCAL PREVIEW</h3></div>
+<div class="toolbar"><label>Risk per trade <select id="riskSetting"><option value="0.5">0.5%</option><option value="0.25">0.25%</option><option value="1">1%</option></select></label>
+<label>Consensus threshold <select id="consensusSetting"><option value="85">85%</option><option value="90">90%</option><option value="95">95%</option></select></label>
+<label>Max open positions <select id="positionsSetting"><option>5</option><option>3</option><option>7</option></select></label>
+<button class="btn" id="saveSettings">SAVE PREVIEW</button></div>
+<p class="sub" id="settingsStatus" style="margin-top:12px">No server-side settings have been saved.</p>
+</div></div></section>
 <section class="page" id="activity"><div class="card"><div class="card-head"><h3>SYSTEM ACTIVITY LOG</h3><span class="sub">Local demo session</span></div><div class="activity" id="fullActivity"><div class="event"><i class="bullet"></i><div><b>Prototype loaded</b><small>Dashboard initialized locally</small></div></div></div></div></section>
-<div class="footer">HS4GH TITAN · PRIVATE COMMAND CENTER · PROTOTYPE BUILD 0.1.0 · NOT CONNECTED TO A BROKER</div>
+<div class="footer">HS4GH TITAN · PRIVATE COMMAND CENTER · PROTOTYPE BUILD 0.2.0 · PAPER TRADING DESIGN · NOT CONNECTED TO A BROKER</div>
 </main></div>
 <script>
 const names={
@@ -82,11 +111,18 @@ let all=[];Object.entries(names).forEach(([d,arr])=>arr.forEach((n,i)=>all.push(
 const preview=document.getElementById("agentPreview");preview.innerHTML=all.slice(0,10).map(a=>`<div class="agent"><div class="agent-top"><b>${a.id}</b><i class="status"></i></div><small>${a.name}</small></div>`).join("");
 function renderAgents(){const q=(document.getElementById("agentSearch")?.value||"").toLowerCase(),d=document.getElementById("deptFilter")?.value||"all";document.getElementById("agentTable").innerHTML=all.filter(a=>(d==="all"||a.dept===d)&&(a.id+a.name+a.role).toLowerCase().includes(q)).map(a=>`<tr><td>${a.id}</td><td><b>${a.name}</b></td><td>${a.dept}</td><td><span class="tag">READY · DEMO</span></td><td>${a.role}</td></tr>`).join("")}
 document.getElementById("agentSearch").addEventListener("input",renderAgents);document.getElementById("deptFilter").addEventListener("change",renderAgents);renderAgents();
-const titles={overview:"Command Center",agents:"Agent Control",analysis:"Market Analysis",council:"Titan Council",risk:"Risk Center",activity:"Activity Log"};
+const titles={overview:"Command Center",agents:"Agent Control",analysis:"Market Analysis",council:"Titan Council",risk:"Risk Center",activity:"Activity Log",settings:"TITAN COMMAND"};
 document.getElementById("nav").addEventListener("click",e=>{const b=e.target.closest("button[data-page]");if(!b)return;document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===b.dataset.page));document.getElementById("pageTitle").textContent=titles[b.dataset.page]});
 function log(title,detail){const el=document.createElement("div");el.className="event";el.innerHTML=`<i class="bullet"></i><div><b>${title}</b><small>${detail}</small></div>`;document.getElementById("activityFeed").prepend(el);document.getElementById("fullActivity").prepend(el.cloneNode(true))}
 let running=false;
 function simulateAnalysis(){const btn=document.getElementById("analyzeBtn");btn.disabled=true;btn.textContent="ANALYZING…";document.getElementById("systemState").textContent="Running simulated analysis";document.getElementById("signal").textContent="SCANNING";log("Analysis cycle started","100 simulated agent reports requested");setTimeout(()=>{document.getElementById("signal").textContent="WAIT";document.getElementById("signalNote").textContent="Demo vote: 58% BUY · below threshold";document.getElementById("riskGate").textContent="READY";document.getElementById("systemState").textContent="Demo analysis complete";btn.disabled=false;btn.textContent="⌕ ANALYZE NOW";log("Council decision: WAIT","Weighted score did not reach the provisional 75% threshold");},1800)}
+document.getElementById("saveSettings")?.addEventListener("click",()=>{
+ const r=document.getElementById("riskSetting").value;
+ const c=document.getElementById("consensusSetting").value;
+ const p=document.getElementById("positionsSetting").value;
+ document.getElementById("settingsStatus").textContent=`Preview updated: ${r}% risk · ${c}% consensus · ${p} max positions. Not saved to a server.`;
+ log("TITAN COMMAND preview changed",`${r}% risk · ${c}% consensus · ${p} max positions`);
+});
 document.getElementById("analyzeBtn").addEventListener("click",simulateAnalysis);document.getElementById("analysisPageBtn").addEventListener("click",simulateAnalysis);
 document.getElementById("startBtn").addEventListener("click",()=>{running=!running;document.getElementById("startBtn").textContent=running?"Ⅱ PAUSE SYSTEM":"▶ START SYSTEM";document.getElementById("systemState").textContent=running?"Demo system running":"Demo system paused";log(running?"System started":"System paused","UI simulation only · no live agents or broker connection")});
 document.querySelectorAll(".timeframes button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".timeframes button").forEach(x=>x.classList.toggle("sel",x===b))}));
