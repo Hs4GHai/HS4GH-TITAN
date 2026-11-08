@@ -1,133 +1,130 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090b10">
-<title>HS4GH TITAN · 0.4.0</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090d14">
+<title>HS4GH TITAN 1.0.0</title>
 <script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
 <style>
-:root{--bg:#090b10;--panel:#121925;--panel2:#171f2d;--line:#293548;--gold:#e6bd70;--muted:#9aa8bb;--green:#4ed5a5;--red:#ff7777;--blue:#82aaff}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#eef2f8;font:14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}
-button,select{font:inherit}button{cursor:pointer}.shell{min-height:100vh;display:grid;grid-template-columns:230px 1fr}.side{background:#0d121b;border-left:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;gap:20px}.brand{display:flex;align-items:center;gap:10px}.logo{width:40px;height:40px;border:1px solid #876a36;border-radius:12px;display:grid;place-items:center;color:var(--gold);font-weight:900;font-size:20px}.brand b{letter-spacing:1px}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:1.5px}.nav{display:grid;gap:5px}.nav button{border:1px solid transparent;background:none;color:#bbc5d3;text-align:right;padding:10px;border-radius:9px}.nav button.active,.nav button:hover{background:#252015;border-color:#65502e;color:var(--gold)}.main{max-width:1500px;width:100%;padding:22px 25px;margin:auto;min-width:0}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}.eyebrow{color:var(--gold);font-size:10px;letter-spacing:2px;font-weight:800}.top h1{font-size:23px;margin:3px 0}.controls{display:flex;gap:7px;flex-wrap:wrap}.select,.btn{background:var(--panel2);border:1px solid var(--line);border-radius:9px;color:#eef2f8;padding:9px 11px;font-size:11px}.btn.primary{background:var(--gold);color:#17120a;border-color:#a17c3e;font-weight:800}.btn:disabled{opacity:.5}.hero,.card,.stat{background:linear-gradient(145deg,#151d2a,#101620);border:1px solid var(--line);border-radius:13px}.hero{padding:15px 18px;margin-bottom:12px;border-color:#59472a;background:linear-gradient(110deg,#2b2113,#151a24)}.hero h2{font-size:18px;margin:2px 0}.hero p{font-size:11px;color:#c7bdab;margin:0}.notice{background:#241e13;border:1px solid #65502e;color:#e6d09f;border-radius:9px;padding:10px 12px;font-size:11px;margin:10px 0}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}.stat{padding:12px}.stat small{color:var(--muted);font-size:10px}.stat strong{display:block;font-size:22px;margin:4px 0}.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}.grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(270px,1fr);gap:12px}.card{padding:14px;min-width:0}.head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.head h3{margin:0;font-size:13px}.tag{font-size:9px;padding:3px 8px;border-radius:20px;background:#1b352d;color:var(--green)}.tag.warn{background:#352b18;color:var(--gold)}#chart{height:390px;width:100%;direction:ltr}.chart-tools{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}.chart-tools button{padding:6px 9px;font-size:10px}.chart-tools button.active{border-color:var(--gold);color:var(--gold)}.analysis-item{padding:10px;border:1px solid var(--line);border-radius:9px;margin:8px 0;background:#171f2b}.analysis-item b{display:block;font-size:11px}.analysis-item span{font-size:10px;color:var(--muted)}.analysis-item p{font-size:11px;margin:4px 0 0}.page{display:none}.page.active{display:block}.footer{text-align:center;color:#66758a;font-size:10px;padding:18px}.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
-@media(max-width:900px){.shell{grid-template-columns:66px 1fr}.side{padding:12px 7px}.brand div:last-child{display:none}.nav button{font-size:0;text-align:center;padding:10px 3px}.nav button:after{content:attr(data-icon);font-size:17px}.stats{grid-template-columns:repeat(2,1fr)}.main{padding:15px 12px}}
-@media(max-width:650px){.shell{display:block}.side{position:sticky;top:0;z-index:10;height:54px;flex-direction:row;align-items:center;justify-content:space-between;padding:6px 10px;border-left:0;border-bottom:1px solid var(--line)}.brand div:last-child{display:block}.brand b{font-size:10px}.brand small{font-size:7px}.logo{width:34px;height:34px}.nav{display:flex;gap:2px}.nav button{padding:8px}.main{padding:13px 10px}.grid{grid-template-columns:1fr}#chart{height:330px}.top h1{font-size:19px}.stats{gap:6px}.stat strong{font-size:19px}}
-</style>
-</head>
-<body>
-<div class="shell">
-<aside class="side">
- <div class="brand"><div class="logo">T</div><div><b>HS4GH TITAN</b><small>MARKET INTELLIGENCE</small></div></div>
- <nav class="nav"><button class="active" data-page="home" data-icon="◈">نظرة عامة</button><button data-page="analysis" data-icon="⌁">التحليل</button><button data-page="risk" data-icon="⛨">المخاطر</button><button data-page="command" data-icon="⚙">TITAN COMMAND</button></nav>
-</aside>
-<main class="main">
+:root{--bg:#090d14;--panel:#121b28;--panel2:#172233;--line:#2a3a50;--gold:#e7bd70;--muted:#9cacc0;--green:#2bc994;--red:#f16e7b;--blue:#7fa8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#edf3fb;font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1500px;margin:auto;padding:12px}.top{position:sticky;top:0;z-index:5;background:#0b111b;padding:10px 12px;border:1px solid var(--line);border-radius:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:9px}.logo{height:38px;width:38px;border:1px solid #806334;border-radius:11px;display:grid;place-items:center;color:var(--gold);font-size:20px;font-weight:900}.brand b{letter-spacing:2px}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px}.controls,.row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.btn,select,input{background:var(--panel2);border:1px solid var(--line);border-radius:9px;color:#edf3fb;padding:9px 11px;font-size:11px}.btn.primary{background:var(--gold);color:#1b150b;border-color:#b18b4b;font-weight:800}.btn.good{border-color:#276f5a;color:#65e0b4}.btn.bad{border-color:#7a3944;color:#ff9ba4}.btn.active{border-color:var(--gold);color:var(--gold)}.btn:disabled{opacity:.5}.notice{padding:9px 12px;background:#241e13;border:1px solid #5b492b;color:#e6d19f;border-radius:10px;font-size:11px;margin:10px 0}.notice.ok{background:#10271f;border-color:#245b49;color:#83e1bd}.notice.err{background:#2a171c;border-color:#6d3440;color:#ffb2b9}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.stat,.card{background:linear-gradient(145deg,#151f2e,#101722);border:1px solid var(--line);border-radius:13px;padding:12px;min-width:0}.stat small{color:var(--muted);font-size:10px}.stat strong{display:block;font-size:21px;margin:4px 0}.gold{color:var(--gold)}.green{color:var(--green)}.red{color:var(--red)}.layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(280px,1fr);gap:10px}.card h3{font-size:14px;margin:0}.head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.muted{color:var(--muted);font-size:10px}.tag{font-size:9px;padding:4px 8px;border-radius:30px;background:#1b382e;color:#6be0b5}.tag.warn{background:#392d18;color:#f1ce83}#chart{height:440px;width:100%;direction:ltr}.tools{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.tools .btn{padding:6px 9px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.field{display:grid;gap:4px}.field label{font-size:10px;color:var(--muted)}.field input,.field select{width:100%}.analysis{display:grid;gap:7px}.result{padding:9px;border:1px solid var(--line);border-radius:9px;background:#172232}.result b{display:block;font-size:11px}.result p{margin:3px 0;font-size:11px}.result small{color:var(--muted);font-size:10px}.tabs{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0}.tab{padding:8px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;color:#c7d2e1;font-size:11px}.tab.active{color:var(--gold);border-color:var(--gold)}.section{display:none}.section.active{display:block}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:11px}th,td{padding:8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th{color:var(--muted)}.empty{padding:18px;text-align:center;color:var(--muted);font-size:11px}.foot{text-align:center;color:#66778d;font-size:10px;padding:16px}.pill{font-size:10px;border-radius:20px;padding:4px 8px;background:#1b2738;color:#c8d5e7}.signal{font-weight:800}.buy{color:var(--green)}.sell{color:var(--red)}.hidden{display:none!important}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}#chart{height:360px}}
+@media(max-width:520px){.app{padding:7px}.top{padding:8px}.brand b{font-size:11px}.brand small{font-size:8px}.logo{width:32px;height:32px}.stats{gap:6px}.stat{padding:9px}.stat strong{font-size:18px}#chart{height:320px}.grid2{grid-template-columns:1fr}}
+</style></head>
+<body><div class="app">
 <header class="top">
- <div><div class="eyebrow">HS4GH · LIVE MARKET DATA · PAPER TRADING</div><h1>مركز القيادة</h1></div>
+ <div class="brand"><div class="logo">T</div><div><b>HS4GH TITAN</b><small>MARKET INTELLIGENCE · PAPER TRADING</small></div></div>
  <div class="controls">
-  <select class="select" id="lang"><option value="ar">العربية</option><option value="en">English</option><option value="ku">کوردی سۆرانی</option><option value="bad">کوردی بادینی</option></select>
-  <select class="select" id="asset"><option value="XAUUSD">XAUUSD · الذهب</option><option value="BTCUSD">BTCUSD · البتكوين</option></select>
-  <select class="select" id="tf"><option value="5m">M5</option><option value="15m">M15</option><option value="30m">M30</option><option value="1h">H1</option><option value="1d">D1</option></select>
-  <button class="btn" id="refresh">تحديث البيانات</button>
+  <select id="asset"><option value="XAUUSD">XAUUSD · GOLD</option><option value="BTCUSD">BTCUSD · BITCOIN</option></select>
+  <select id="range"><option value="1y">سنة واحدة</option><option value="6mo">6 أشهر</option><option value="3mo">3 أشهر</option><option value="1mo">شهر</option><option value="5d">5 أيام</option><option value="1d">يوم</option></select>
+  <select id="interval"><option value="1d">1D</option><option value="1h">1H</option><option value="30m">30M</option><option value="15m">15M</option><option value="5m">5M</option></select>
+  <button class="btn primary" id="refresh">تحديث يدوي</button>
  </div>
 </header>
-<section class="page active" id="home">
- <div class="hero"><div class="eyebrow">TITAN COMMAND / BUILD 0.4.0</div><h2>شموع حقيقية وتحليل فني أولي للذهب والبتكوين</h2><p>مصادر البيانات: XAUS للذهب والبتكوين التاريخي · الأسعار إرشادية وليست أسعار تنفيذ وسيط.</p></div>
- <div class="notice" id="status">جاري الاتصال بمصادر السوق...</div>
- <div class="stats">
-  <div class="stat"><small>الأصل المحدد</small><strong id="symbol">XAUUSD</strong><small>رمز السوق</small></div>
-  <div class="stat"><small>السعر المرجعي</small><strong class="gold" id="price">—</strong><small id="priceTime">بانتظار البيانات</small></div>
-  <div class="stat"><small>الرصيد الافتراضي</small><strong>$25,000</strong><small>Paper Trading فقط</small></div>
-  <div class="stat"><small>حد الخسارة اليومي</small><strong>$750</strong><small>3% مشترك للأصلين</small></div>
- </div>
- <div class="grid">
+<div id="status" class="notice">اضغط «تحديث يدوي» لتحميل بيانات السوق الحقيقية.</div>
+<div class="stats">
+ <div class="stat"><small>الأصل</small><strong id="symbol">XAUUSD</strong><small>USD</small></div>
+ <div class="stat"><small>آخر سعر مرجعي</small><strong id="price" class="gold">—</strong><small id="asof">لم يتم التحديث</small></div>
+ <div class="stat"><small>رصيد DEMO</small><strong id="balance">$25,000.00</strong><small>حساب افتراضي محلي</small></div>
+ <div class="stat"><small>صافي الربح/الخسارة</small><strong id="pnl">$0.00</strong><small>محقق + عائم</small></div>
+</div>
+<div class="tabs">
+ <button class="tab active" data-section="market">السوق والتحليل</button>
+ <button class="tab" data-section="demo">حساب DEMO</button>
+ <button class="tab" data-section="history">سجل الصفقات</button>
+ <button class="tab" data-section="about">حالة الأنظمة</button>
+</div>
+<section id="market" class="section active">
+ <div class="layout">
   <div class="card">
-   <div class="head"><h3>مخطط الشموع اليابانية</h3><span class="tag" id="feedTag">جاري التحميل</span></div>
-   <div class="chart-tools"><button class="btn active" id="candles">شموع</button><button class="btn" id="line">خط</button><button class="btn" id="ema">EMA 20</button></div>
+   <div class="head"><h3>الچارت التاريخي والتفاعلي</h3><span id="feed" class="tag warn">بانتظار البيانات</span></div>
+   <div class="tools">
+    <button class="btn active" id="candles">شموع</button><button class="btn" id="line">خط</button>
+    <button class="btn" id="ema20">EMA 20</button><button class="btn" id="ema50">EMA 50</button>
+    <button class="btn" id="bb">Bollinger</button><button class="btn" id="vwap">VWAP</button>
+    <button class="btn" id="stream">بدء البث المباشر</button>
+   </div>
    <div id="chart"></div>
-   <div class="footer" id="source">المصدر: —</div>
+   <div class="muted" id="source">المصدر ووقت البيانات سيظهران هنا.</div>
   </div>
   <div class="card">
-   <div class="head"><h3>التحليل الفني</h3><span class="tag" id="analysisTag">قيد الفحص</span></div>
-   <div id="analysisResult"><div class="analysis-item"><b>الاتجاه</b><span>بانتظار بيانات الشموع</span></div></div>
-   <div class="notice">هذا تحليل فني آلي أولي مبني على الشموع والمؤشرات المحسوبة بالمتصفح، وليس توصية استثمارية أو تحليلاً مؤسسياً كاملاً لـ ICT/SMC.</div>
+   <div class="head"><h3>أنظمة التحليل</h3><span class="tag">قابلة للاختيار</span></div>
+   <div class="field"><label>اختر النظام</label><select id="strategy">
+    <option value="trend">Trend + EMA</option><option value="rsi">RSI Reversal</option><option value="macd">MACD Momentum</option><option value="breakout">Support / Resistance Breakout</option><option value="fib">Fibonacci Retracement</option><option value="candle">Candlestick Patterns</option><option value="multi">Multi-indicator Consensus</option><option value="sk">SK System (يتطلب قواعد SK المعتمدة)</option><option value="ict">ICT Concepts (نسخة أولية)</option><option value="smc">SMC Structure (نسخة أولية)</option>
+   </select></div>
+   <div class="notice">اختيار النظام لا يعني أن كل مدرسة تحليل أصبحت مكتملة. الأنظمة التي تحتاج قواعد متخصصة أو بيانات إضافية ستظهر بوضوح كنسخة أولية أو غير مفعلة.</div>
+   <button class="btn primary" id="analyze" style="width:100%">ANALYZE NOW · تحليل الآن</button>
+   <div id="analysis" class="analysis" style="margin-top:9px"><div class="empty">حمّل بيانات السوق أولاً، ثم ابدأ التحليل.</div></div>
   </div>
  </div>
 </section>
-<section class="page" id="analysis">
- <div class="card"><div class="head"><h3>مساحة التحليل</h3><span class="tag">LIVE DATA</span></div><p>اختر الأصل والإطار الزمني من أعلى الصفحة. يتم تحديث الشموع والتحليل من المصدر نفسه.</p><button class="btn primary" id="analyzeNow">إعادة التحليل الآن</button><div id="analysisDetail"></div></div>
+<section id="demo" class="section">
+ <div class="card">
+  <div class="head"><h3>حساب التداول التجريبي</h3><span class="tag">PAPER ONLY</span></div>
+  <div class="notice">الحساب محفوظ محلياً على هذا المتصفح والجهاز. لا توجد أموال حقيقية أو اتصال بوسيط.</div>
+  <div class="grid2">
+   <div class="field"><label>حجم الصفقة (وحدات)</label><input id="qty" type="number" min="0.00001" step="0.00001" value="0.01"></div>
+   <div class="field"><label>وقف الخسارة (سعر)</label><input id="sl" type="number" step="any" placeholder="اختياري"></div>
+   <div class="field"><label>جني الأرباح (سعر)</label><input id="tp" type="number" step="any" placeholder="اختياري"></div>
+   <div class="field"><label>ملاحظة الصفقة</label><input id="tradeNote" placeholder="مثلاً: إشارة EMA"></div>
+  </div>
+  <div class="tools"><button class="btn good" id="buy">BUY · شراء</button><button class="btn bad" id="sell">SELL · بيع</button><button class="btn" id="resetDemo">إعادة ضبط الحساب</button></div>
+  <div class="stats">
+   <div class="stat"><small>الرصيد الابتدائي</small><strong>$25,000</strong></div><div class="stat"><small>الهامش/القيمة المفتوحة</small><strong id="exposure">$0</strong></div><div class="stat"><small>صفقات مفتوحة</small><strong id="openCount">0</strong></div><div class="stat"><small>نسبة المخاطرة المخططة</small><strong>0.5%</strong></div>
+  </div>
+  <div class="head"><h3>الصفقات المفتوحة</h3></div><div id="positions" class="tablewrap"><div class="empty">لا توجد صفقات مفتوحة.</div></div>
+ </div>
 </section>
-<section class="page" id="risk">
- <div class="card"><h3>إدارة المخاطر المعتمدة</h3><div class="stats"><div class="stat"><small>مخاطرة الصفقة</small><strong>0.5%</strong><small>$125 عند الرصيد الابتدائي</small></div><div class="stat"><small>الخسارة اليومية المشتركة</small><strong>$750</strong><small>3%</small></div><div class="stat"><small>الحد الأقصى للصفقات</small><strong>5</strong><small>للذهب والبتكوين معاً</small></div><div class="stat"><small>الموافقة المطلوبة</small><strong>85%</strong><small>مع موافقة Risk Engine</small></div></div><p class="notice">لا يوجد تنفيذ أو محرك تداول آلي متصل حالياً. هذه الصفحة للعرض والتحليل فقط.</p></div>
-</section>
-<section class="page" id="command">
- <div class="card"><h3>TITAN COMMAND · SUPER ADMIN</h3><p>رصيد افتراضي $25,000 · مخاطرة 0.5% · حد يومي مشترك $750 · 5 صفقات كحد أقصى.</p><p>الأصول: XAUUSD وBTCUSD. التنبيهات داخل الموقع حالياً، وTelegram لاحقاً.</p><p class="notice">لوحة الإعدادات المعروضة لا تحفظ إعدادات على خادم. التحكم الآمن يحتاج Backend وقاعدة بيانات وتسجيل دخول.</p></div>
-</section>
-<div class="footer">HS4GH TITAN 0.4.0 · DATA SOURCES ARE INDICATIVE · PAPER TRADING ONLY</div>
-</main></div>
+<section id="history" class="section"><div class="card"><div class="head"><h3>سجل الصفقات المغلقة</h3><button class="btn" id="export">تصدير CSV</button></div><div id="closedTrades" class="tablewrap"><div class="empty">لا توجد صفقات مغلقة.</div></div></div></section>
+<section id="about" class="section"><div class="card"><h3>حالة التنفيذ والشفافية</h3>
+ <div class="result"><b>بيانات XAUUSD</b><p>XAUS API: سعر مرجعي مباشر وبيانات تاريخية. الأسعار إرشادية وليست أسعار تنفيذ وسيط.</p><small>توثيق: xaus.com/api</small></div>
+ <div class="result"><b>بيانات BTCUSD</b><p>XAUS للتاريخ والسعر المرجعي. بث Binance WebSocket اختياري عند ضغط زر بدء البث، ويظل متوقفاً افتراضياً احتراماً للتحديث اليدوي.</p><small>التداول التجريبي يستخدم سعر العرض الحالي المحمّل.</small></div>
+ <div class="result"><b>تحليل فني</b><p>EMA, RSI, MACD, Bollinger, Fibonacci, دعم/مقاومة، أنماط شموع بسيطة، وبنية سوق أولية.</p><small>ليست كل أنظمة ICT/SMC/SK مكتملة. لا توجد دقة مضمونة.</small></div>
+ <div class="result"><b>ما يتطلب مرحلة خادم مستقلة</b><p>تسجيل دخول متعدد المستخدمين، قاعدة بيانات مركزية، أخبار اقتصادية مرخصة، تنبيهات، وكلاء تحليل حقيقيون، تشغيل 24/7، مدفوعات، صلاحيات Super Admin.</p></div>
+ </div></section>
+<div class="foot">HS4GH TITAN 1.0.0 · PAPER TRADING ONLY · لا توجد توصية استثمارية</div>
+</div>
 <script>
-const $=id=>document.getElementById(id);
-let chart,candleSeries,lineSeries,emaSeries=[],rawBars=[],currentType="candles",lastData=null;
-const api="https://xaus.com/api/v1";
-const tfMap={"5m":"5m","15m":"15m","30m":"30m","1h":"1h","1d":"1d"};
-function initChart(){
- if(!window.LightweightCharts){$("status").textContent="تعذر تحميل مكتبة الرسم. تحقق من اتصال الإنترنت ثم أعد تحميل الصفحة.";return}
- chart=LightweightCharts.createChart($("chart"),{width:$("chart").clientWidth,height:$("chart").clientHeight,layout:{background:{color:"#121925"},textColor:"#aab6c8"},grid:{vertLines:{color:"#202b3b"},horzLines:{color:"#202b3b"}},rightPriceScale:{borderColor:"#344157"},timeScale:{borderColor:"#344157",timeVisible:true,secondsVisible:false},crosshair:{mode:0}});
- candleSeries=chart.addCandlestickSeries({upColor:"#32c995",downColor:"#f06f78",borderUpColor:"#32c995",borderDownColor:"#f06f78",wickUpColor:"#32c995",wickDownColor:"#f06f78"});
- lineSeries=chart.addLineSeries({color:"#e6bd70",lineWidth:2,visible:false});
- emaSeries.push(chart.addLineSeries({color:"#7fa7ff",lineWidth:2,visible:false}));
- new ResizeObserver(()=>chart.applyOptions({width:$("chart").clientWidth,height:$("chart").clientHeight})).observe($("chart"));
+const $=id=>document.getElementById(id), money=n=>Number(n||0).toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}), fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits: asset()==='BTCUSD'?2:2});
+const storeKey='hs4gh_titan_demo_v1';let state=loadState(),chart=null,candle=null,line=null,ema20s=null,ema50s=null,bbU=null,bbL=null,vwapS=null,bars=[],lastPrice=null,lastUpdated=null,stream=null,streamOn=false,mode='candles',markers=[],analysisLines=[];
+function asset(){return $('asset').value}
+function loadState(){try{return JSON.parse(localStorage.getItem(storeKey))||{balance:25000,realized:0,positions:[],closed:[],nextId:1}}catch(e){return {balance:25000,realized:0,positions:[],closed:[],nextId:1}}}
+function saveState(){localStorage.setItem(storeKey,JSON.stringify(state));renderDemo()}
+function initChart(){if(!window.LightweightCharts){$('status').textContent='تعذر تحميل مكتبة الرسم. تحقق من الإنترنت.';return}chart=LightweightCharts.createChart($('chart'),{width:$('chart').clientWidth,height:$('chart').clientHeight,layout:{background:{color:'#121b28'},textColor:'#a9b8cc'},grid:{vertLines:{color:'#243247'},horzLines:{color:'#243247'}},rightPriceScale:{borderColor:'#34445a'},timeScale:{borderColor:'#34445a',timeVisible:true,secondsVisible:false},crosshair:{mode:0}});candle=chart.addCandlestickSeries({upColor:'#2bc994',downColor:'#f16e7b',borderUpColor:'#2bc994',borderDownColor:'#f16e7b',wickUpColor:'#2bc994',wickDownColor:'#f16e7b'});line=chart.addLineSeries({color:'#e7bd70',lineWidth:2,visible:false});ema20s=chart.addLineSeries({color:'#78a8ff',lineWidth:2,visible:false});ema50s=chart.addLineSeries({color:'#e7a75f',lineWidth:2,visible:false});bbU=chart.addLineSeries({color:'#a18bce',lineWidth:1,visible:false});bbL=chart.addLineSeries({color:'#a18bce',lineWidth:1,visible:false});vwapS=chart.addLineSeries({color:'#4dd8c2',lineWidth:1,visible:false});new ResizeObserver(()=>chart.applyOptions({width:$('chart').clientWidth,height:$('chart').clientHeight})).observe($('chart'))}
+function cleanBars(points){return points.map(p=>({time:Number(p.t),open:+p.o,high:+p.h,low:+p.l,close:+p.c,volume:+(p.v||0)})).filter(x=>x.time&&[x.open,x.high,x.low,x.close].every(Number.isFinite)).sort((a,b)=>a.time-b.time).filter((x,i,a)=>!i||x.time!==a[i-1].time)}
+async function loadMarket(){if(!chart)return;$('refresh').disabled=true;$('status').className='notice';$('status').textContent='جاري جلب البيانات التاريخية والسعر المرجعي...';let a=asset(),range=$('range').value,iv=$('interval').value,sy=a==='XAUUSD'?'xau':'bitcoin';try{
+ let urls=a==='XAUUSD'?[`https://xaus.com/api/v1/spot?compact=1`,`https://xaus.com/api/v1/chart?symbol=xau&range=${range}&interval=${iv}`]:[`https://xaus.com/api/v1/spot?compact=1`,`https://xaus.com/api/v1/chart?symbol=bitcoin&range=${range}&interval=${iv}`];
+ let [sr,cr]=await Promise.all(urls.map(u=>fetch(u,{cache:'no-store'})));if(!sr.ok)throw Error('تعذر جلب السعر المرجعي HTTP '+sr.status);if(!cr.ok)throw Error('تعذر جلب الشموع HTTP '+cr.status);let spot=await sr.json(),cd=await cr.json();let p=a==='XAUUSD'?spot.spot_usd_oz:spot.btc_usd;if(!Number.isFinite(+p))throw Error('المصدر لم يرجع سعراً صالحاً');if(a==='XAUUSD'&&spot.data_state?.status==='unavailable')throw Error('سعر الذهب غير متاح');let data=cleanBars(cd.points||[]);if(data.length<2)throw Error('لم تصل شموع تاريخية كافية');bars=data;lastPrice=+p;checkStops(lastPrice,a);lastUpdated=spot.price_as_of||spot.updated_at||new Date().toISOString();$('symbol').textContent=a;$('price').textContent=money(lastPrice);$('asof').textContent='آخر مصدر: '+new Date(lastUpdated).toLocaleString();candle.setData(data);line.setData(data.map(x=>({time:x.time,value:x.close})));drawIndicators();chart.timeScale().fitContent();$('feed').textContent=(spot.data_state?.status||'غير محدد')==='fresh'?'بيانات حديثة':'تحقق من حداثة المصدر';$('feed').className='tag';$('source').textContent=`XAUS · ${a} · ${iv.toUpperCase()} · ${range} · ${data.length} شمعة · ${new Date(lastUpdated).toLocaleString()}`;$('status').className='notice ok';$('status').textContent=`تم تحميل ${data.length} شمعة تاريخية. السعر المرجعي: ${money(lastPrice)}. التحديث اليدوي فقط؛ البث المباشر للبتكوين اختياري.`;updateFloating();}catch(e){$('status').className='notice err';$('status').textContent='فشل تحميل بيانات حقيقية: '+e.message+' — لم نعرض بيانات مصطنعة.';$('feed').textContent='لا توجد بيانات';$('feed').className='tag warn'}finally{$('refresh').disabled=false}}
+function ema(data,n){let k=2/(n+1),v=data[0].close,out=[];data.forEach((b,i)=>{v=i?b.close*k+v*(1-k):b.close;out.push({time:b.time,value:v})});return out}
+function sma(arr,n,i){let s=0;for(let j=i-n+1;j<=i;j++)s+=arr[j];return s/n}
+function rsi(data,n=14){if(data.length<n+1)return [];let out=[];for(let i=n;i<data.length;i++){let g=0,l=0;for(let j=i-n+1;j<=i;j++){let d=data[j].close-data[j-1].close;if(d>0)g+=d;else l-=d}let rs=l===0?100:g/l;out.push({time:data[i].time,value:l===0?100:100-100/(1+rs)})}return out}
+function macd(data){let e12=ema(data,12),e26=ema(data,26),diff=e12.map((x,i)=>({time:x.time,value:x.value-e26[i].value}));let k=2/10,s=diff[0].value,signal=[];diff.forEach((d,i)=>{s=i?d.value*k+s*(1-k):d.value;signal.push({time:d.time,value:s})});return {diff,signal}}
+function drawIndicators(){if(!bars.length)return;ema20s.setData(ema(bars,20));ema50s.setData(ema(bars,50));let closes=bars.map(b=>b.close),upper=[],lower=[];for(let i=19;i<bars.length;i++){let m=sma(closes,20,i),v=0;for(let j=i-19;j<=i;j++)v+=(closes[j]-m)**2;let sd=Math.sqrt(v/20);upper.push({time:bars[i].time,value:m+2*sd});lower.push({time:bars[i].time,value:m-2*sd})}bbU.setData(upper);bbL.setData(lower);let pv=0,vol=0,vw=[];bars.forEach(b=>{let typical=(b.high+b.low+b.close)/3,weight=b.volume||1;pv+=typical*weight;vol+=weight;vw.push({time:b.time,value:pv/vol})});vwapS.setData(vw)}
+function modeSet(m){mode=m;candle.applyOptions({visible:m==='candles'});line.applyOptions({visible:m==='line'});$('candles').classList.toggle('active',m==='candles');$('line').classList.toggle('active',m==='line')}
+function toggleSeries(id,s){let v=!s.options().visible;s.applyOptions({visible:v});$(id).classList.toggle('active',v)}
+function clearDrawings(){markers=[];candle.setMarkers([]);analysisLines.forEach(x=>{try{chart.removeSeries(x)}catch(e){}});analysisLines=[]}
+function addLevel(price,color,title){let s=chart.addLineSeries({color,lineWidth:1,lineStyle:2,priceLineVisible:false,lastValueVisible:false});s.setData([{time:bars[0].time,value:price},{time:bars.at(-1).time,value:price}]);analysisLines.push(s)}
+function analyze(){if(bars.length<30){$('analysis').innerHTML='<div class="empty">البيانات أقل من 30 شمعة. حمّل تاريخاً أطول.</div>';return}clearDrawings();let s=$('strategy').value,d=bars,last=d.at(-1),prev=d.at(-2),e20=ema(d,20),e50=ema(d,50),rv=rsi(d).at(-1)?.value,m=macd(d),mNow=m.diff.at(-1).value,mPrev=m.diff.at(-2).value,sig=m.signal.at(-1).value,hi=Math.max(...d.slice(-20).map(x=>x.high)),lo=Math.min(...d.slice(-20).map(x=>x.low)),direction='WAIT',why='',entry=last.close,sl=0,tp=0;
+ if(s==='trend'){direction=last.close>e20.at(-1).value&&e20.at(-1).value>e50.at(-1).value?'BUY':last.close<e20.at(-1).value&&e20.at(-1).value<e50.at(-1).value?'SELL':'WAIT';why='اتجاه السعر بالنسبة إلى EMA20 وEMA50.'}
+ else if(s==='rsi'){direction=rv<30?'BUY':rv>70?'SELL':'WAIT';why='RSI(14) عند '+rv.toFixed(1)+'.'}
+ else if(s==='macd'){direction=mNow>sig&&mPrev<=m.signal.at(-2).value?'BUY':mNow<sig&&mPrev>=m.signal.at(-2).value?'SELL':'WAIT';why='تقاطع MACD مع خط الإشارة.'}
+ else if(s==='breakout'){direction=last.close>hi?'BUY':last.close<lo?'SELL':'WAIT';why='اختراق أعلى/أدنى آخر 20 شمعة.'}
+ else if(s==='fib'){let high=Math.max(...d.slice(-100).map(x=>x.high)),low=Math.min(...d.slice(-100).map(x=>x.low)),level=low+(high-low)*.618;direction=last.close>level&&last.close<high?'BUY':last.close<level&&last.close>low?'SELL':'WAIT';why='مستوى 61.8% من نطاق آخر 100 شمعة.';addLevel(level,'#d8b46c','Fib 61.8')}
+ else if(s==='candle'){let bull=last.close>last.open&&prev.close<prev.open&&last.close>prev.open&&last.open<prev.close,bear=last.close<last.open&&prev.close>prev.open&&last.close<prev.open&&last.open>prev.close;direction=bull?'BUY':bear?'SELL':'WAIT';why='فحص ابتلاع شرائي/بيعي للشمعتين الأخيرتين.'}
+ else if(s==='multi'){let votes=(last.close>e20.at(-1).value?1:-1)+(e20.at(-1).value>e50.at(-1).value?1:-1)+(mNow>sig?1:-1)+(rv<35?1:rv>65?-1:0);direction=votes>=3?'BUY':votes<=-3?'SELL':'WAIT';why='تصويت 4 قواعد مستقلة مبسطة؛ ليس 100 وكيلاً.'}
+ else if(s==='ict'||s==='smc'){let bosUp=last.close>Math.max(...d.slice(-10,-1).map(x=>x.high)),bosDn=last.close<Math.min(...d.slice(-10,-1).map(x=>x.low));direction=bosUp?'BUY':bosDn?'SELL':'WAIT';why='هيكل سوق أولي: كسر قمة/قاع محلي. ليس تطبيق ICT/SMC كاملاً.'}
+ else {direction='WAIT';why='SK System غير مفعل حتى تزويدنا بقواعده الدقيقة. لن نخترع قواعد وننسبها إلى SK.'}
+ if(direction!=='WAIT'){let risk=Math.max((last.high-last.low)*1.5,Math.abs(entry-e20.at(-1).value)*.5,entry*.001);sl=direction==='BUY'?entry-risk:entry+risk;tp=direction==='BUY'?entry+2*risk:entry-2*risk;markers=[{time:last.time,position:direction==='BUY'?'belowBar':'aboveBar',color:direction==='BUY'?'#2bc994':'#f16e7b',shape:direction==='BUY'?'arrowUp':'arrowDown',text:direction+' · '+entry.toFixed(2)}];candle.setMarkers(markers);addLevel(entry,'#e7bd70','Entry');addLevel(sl,'#f16e7b','SL');addLevel(tp,'#2bc994','TP')}
+ $('analysis').innerHTML=`<div class="result"><b class="signal ${direction==='BUY'?'buy':direction==='SELL'?'sell':''}">${direction==='WAIT'?'لا توجد إشارة':direction}</b><p>${why}</p><small>الإطار: ${$('interval').value} · السعر المرجعي: ${entry.toFixed(2)}</small></div>${direction!=='WAIT'?`<div class="result"><b>مستويات الرسم</b><p>Entry: ${entry.toFixed(2)} · SL: ${sl.toFixed(2)} · TP: ${tp.toFixed(2)}</p><button class="btn primary" id="tradeSignal">فتح صفقة DEMO حسب الإشارة</button></div>`:''}<div class="result"><b>مؤشرات مرجعية</b><p>EMA20 ${e20.at(-1).value.toFixed(2)} · EMA50 ${e50.at(-1).value.toFixed(2)} · RSI ${rv.toFixed(1)}</p><small>إشارة تعليمية تجريبية وليست توصية أو ضمان دقة.</small></div>`;
+ if(direction!=='WAIT')$('tradeSignal').onclick=()=>openTrade(direction,entry,sl,tp,'Signal: '+s);
 }
-function setChartMode(mode){currentType=mode;candleSeries.applyOptions({visible:mode==="candles"});lineSeries.applyOptions({visible:mode==="line"});$("candles").classList.toggle("active",mode==="candles");$("line").classList.toggle("active",mode==="line")}
-function calcEMA(data,n){let k=2/(n+1),out=[],prev=data[0].close;data.forEach((d,i)=>{prev=i===0?d.close:d.close*k+prev*(1-k);out.push({time:d.time,value:prev})});return out}
-function rsi(data,n=14){if(data.length<n+1)return null;let gains=0,loss=0;for(let i=data.length-n;i<data.length;i++){let d=data[i].close-data[i-1].close;if(d>0)gains+=d;else loss-=d}if(loss===0)return 100;let rs=(gains/n)/(loss/n);return 100-100/(1+rs)}
-function fmt(n){return Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}
-function analyze(data){
- if(data.length<25){$("analysisResult").innerHTML="<div class='analysis-item'><b>بيانات غير كافية</b><span>نحتاج 25 شمعة على الأقل للتحليل الأولي.</span></div>";return}
- let closes=data.map(x=>x.close),ema20=calcEMA(data,20).at(-1).value,ema50=calcEMA(data,Math.min(50,data.length-1)).at(-1).value,last=closes.at(-1),prev=closes.at(-2),rv=rsi(data);
- let trend=last>ema20&&ema20>ema50?"صاعد":last<ema20&&ema20<ema50?"هابط":"متذبذب / مختلط";
- let momentum=last>prev?"الشمعة الأخيرة صاعدة":last<prev?"الشمعة الأخيرة هابطة":"الشمعة الأخيرة محايدة";
- let rsiText=rv===null?"غير متاح":rv.toFixed(1)+(rv>70?" · تشبع شرائي محتمل":rv<30?" · تشبع بيعي محتمل":" · ضمن النطاق المعتاد");
- let support=Math.min(...data.slice(-20).map(x=>x.low)),resistance=Math.max(...data.slice(-20).map(x=>x.high));
- let bias=trend==="صاعد"?"ميل صعودي مبدئي":trend==="هابط"?"ميل هبوطي مبدئي":"لا يوجد اتجاه واضح";
- $("analysisResult").innerHTML=`<div class="analysis-item"><b>اتجاه EMA</b><p>${trend}</p><span>السعر ${fmt(last)} · EMA20 ${fmt(ema20)} · EMA50 ${fmt(ema50)}</span></div><div class="analysis-item"><b>الزخم</b><p>${momentum}</p><span>RSI(14): ${rsiText}</span></div><div class="analysis-item"><b>نطاق آخر 20 شمعة</b><p>دعم تقريبي: ${fmt(support)}</p><span>مقاومة تقريبية: ${fmt(resistance)}</span></div><div class="analysis-item"><b>الخلاصة الفنية الأولية</b><p>${bias}</p><span>لا توجد إشارة دخول تلقائية. يلزم تأكيد بنية السوق والسيولة وإدارة المخاطر.</span></div>`;
- $("analysisTag").textContent="تم التحليل";
- $("analysisDetail").innerHTML=$("analysisResult").innerHTML;
-}
-async function loadMarket(){
- $("refresh").disabled=true;$("status").textContent="جاري جلب السعر والشموع من مصدر البيانات...";
- const asset=$("asset").value,tf=tfMap[$("tf").value],sym=asset==="XAUUSD"?"xau":"bitcoin";
- try{
-  const [spotRes,chartRes]=await Promise.all([
-   fetch(api+"/spot?compact=1",{cache:"no-store"}),
-   fetch(api+`/chart?symbol=${sym}&range=1d&interval=${tf}`,{cache:"no-store"})
-  ]);
-  if(!spotRes.ok)throw new Error("فشل جلب السعر المرجعي: HTTP "+spotRes.status);
-  if(!chartRes.ok)throw new Error("فشل جلب بيانات الشموع: HTTP "+chartRes.status);
-  const spot=await spotRes.json(),chartData=await chartRes.json();
-  const price=asset==="XAUUSD"?spot.spot_usd_oz:spot.btc_usd;
-  if(!Number.isFinite(price))throw new Error("المصدر لم يرجع سعراً صالحاً لهذا الأصل");
-  const state=spot.data_state?.status||"unknown";
-  if(asset==="XAUUSD"&&state==="unavailable")throw new Error("سعر الذهب غير متاح حالياً");
-  $("price").textContent="$"+fmt(price);
-  $("priceTime").textContent="آخر تحديث: "+new Date(spot.price_as_of||spot.updated_at).toLocaleString();
-  $("symbol").textContent=asset;
-  const points=Array.isArray(chartData.points)?chartData.points:[];
-  const bars=points.map(p=>({time:Number(p.t),open:Number(p.o),high:Number(p.h),low:Number(p.l),close:Number(p.c)})).filter(p=>p.time&&[p.open,p.high,p.low,p.close].every(Number.isFinite)).sort((a,b)=>a.time-b.time);
-  if(!bars.length)throw new Error("وصل السعر لكن مصدر الشموع لم يرجع بيانات صالحة");
-  rawBars=bars;lastData={spot,chartData};
-  candleSeries.setData(bars);lineSeries.setData(bars.map(b=>({time:b.time,value:b.close})));
-  emaSeries[0].setData(calcEMA(bars,20));
-  chart.timeScale().fitContent();setChartMode(currentType);
-  $("feedTag").textContent=state==="stale"?"بيانات سعر مخزنة":"بيانات متصلة";
-  $("feedTag").className=state==="stale"?"tag warn":"tag";
-  $("source").textContent=`المصدر: XAUS · ${asset} · ${tf.toUpperCase()} · ${bars.length} شمعة · بيانات إرشادية`;
-  $("status").textContent=`تم تحميل ${bars.length} شمعة. السعر المرجعي محدث حسب توقيت المصدر. هذه بيانات سوق إرشادية وليست أسعار وسيط للتنفيذ.`;
-  analyze(bars);
- }catch(err){$("status").textContent="تعذر تحميل بيانات حقيقية: "+err.message+" — لم نعرض بيانات مصطنعة."; $("feedTag").textContent="فشل الاتصال";$("feedTag").className="tag warn";$("analysisResult").innerHTML="<div class='analysis-item'><b>لا يمكن التحليل حالياً</b><span>تعذر جلب شموع حقيقية؛ لن نخمن اتجاه السوق.</span></div>";}
- finally{$("refresh").disabled=false}
-}
-$("asset").addEventListener("change",loadMarket);$("tf").addEventListener("change",loadMarket);$("refresh").addEventListener("click",loadMarket);$("analyzeNow").addEventListener("click",loadMarket);$("candles").addEventListener("click",()=>setChartMode("candles"));$("line").addEventListener("click",()=>setChartMode("line"));$("ema").addEventListener("click",()=>{let v=!emaSeries[0].options().visible;emaSeries[0].applyOptions({visible:v});$("ema").classList.toggle("active",v)});
-document.querySelector(".nav").addEventListener("click",e=>{let b=e.target.closest("button[data-page]");if(!b)return;document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===b.dataset.page))});
-const langs={ar:["نظرة عامة","التحليل","المخاطر","TITAN COMMAND"],en:["Overview","Analysis","Risk","TITAN COMMAND"],ku:["پوختە","شیکردنەوە","مەترسی","TITAN COMMAND"],bad:["پوختە","شیکارکرن","مەترسی","TITAN COMMAND"]};
-$("lang").addEventListener("change",e=>{let l=e.target.value;document.documentElement.lang=l==="en"?"en":"ku";document.documentElement.dir=l==="en"?"ltr":"rtl";document.querySelectorAll(".nav button").forEach((b,i)=>b.textContent=langs[l][i]);});
-initChart();loadMarket();setInterval(loadMarket,60000);
-</script>
-</body></html>
+function openTrade(side,price,sl,tp,note){let q=+$('qty').value,stop=Number(sl),target=Number(tp);if(!Number.isFinite(q)||q<=0)return alert('أدخل حجم صفقة صحيح.');if(!Number.isFinite(price)||price<=0)return alert('حدّث السعر أولاً.');if(!Number.isFinite(stop)||stop<=0)return alert('حتى نطبق مخاطرة 0.5% لازم تحدد وقف خسارة صالح.');if((side==='BUY'&&stop>=price)||(side==='SELL'&&stop<=price))return alert('وقف الخسارة في الجهة غير الصحيحة.');if(Number.isFinite(target)&&target>0&&((side==='BUY'&&target<=price)||(side==='SELL'&&target>=price)))return alert('جني الأرباح في الجهة غير الصحيحة.');if(state.positions.length>=5)return alert('وصلت للحد الأقصى: 5 صفقات مفتوحة.');let today=new Date().toISOString().slice(0,10),dailyLoss=state.closed.filter(x=>x.closed.slice(0,10)===today&&x.pnl<0).reduce((a,x)=>a-x.pnl,0);if(dailyLoss>=750)return alert('تم بلوغ حد الخسارة اليومية 3% ($750). تم إيقاف فتح صفقات جديدة.');let risk=Math.abs(price-stop)*q;if(risk>125.01)return alert('مخاطرة الصفقة '+money(risk)+' وتتجاوز الحد 0.5% ($125). قلل الحجم أو قرّب وقف الخسارة.');let pos={id:state.nextId++,asset:asset(),side,qty:q,entry:price,sl:stop,tp:Number.isFinite(target)&&target>0?target:null,note,opened:new Date().toISOString()};state.positions.push(pos);saveState();alert('تم فتح صفقة DEMO رقم '+pos.id+' · المخاطرة المقدرة '+money(risk))}
+function closeTrade(id,price,automatic=false){let i=state.positions.findIndex(p=>p.id===id);if(i<0)return;let p=state.positions.splice(i,1)[0],exit=price||lastPrice;if(!exit){state.positions.push(p);return alert('لا يوجد سعر إغلاق محمّل لهذا الأصل.')}let pnl=(p.side==='BUY'?exit-p.entry:p.entry-exit)*p.qty;state.realized+=pnl;state.balance+=pnl;state.closed.unshift({...p,exit,closed:new Date().toISOString(),pnl,automatic});saveState()} 
+function checkStops(price,forAsset=asset()){if(!Number.isFinite(price))return;let hit=state.positions.filter(p=>p.asset===forAsset&&((p.side==='BUY'&&((p.sl&&price<=p.sl)||(p.tp&&price>=p.tp)))||(p.side==='SELL'&&((p.sl&&price>=p.sl)||(p.tp&&price<=p.tp)))));hit.forEach(p=>closeTrade(p.id,price,true))}
+function floating(p){if(!lastPrice||p.asset!==asset())return 0;return(p.side==='BUY'?lastPrice-p.entry:p.entry-lastPrice)*p.qty}
+function updateFloating(){let open=state.positions.reduce((a,p)=>a+floating(p),0);$('pnl').textContent=money(state.realized+open);$('balance').textContent=money(state.balance);$('exposure').textContent=money(state.positions.reduce((a,p)=>a+p.entry*p.qty,0));$('openCount').textContent=state.positions.length}
+function renderDemo(){let rows=state.positions.map(p=>`<tr><td>${p.id}</td><td>${p.asset}</td><td class="${p.side==='BUY'?'buy':'sell'}">${p.side}</td><td>${p.qty}</td><td>${p.entry.toFixed(2)}</td><td>${p.sl??'—'}</td><td>${p.tp??'—'}</td><td>${money(floating(p))}</td><td><button class="btn" onclick="closeTrade(${p.id},${p.asset===asset()?(lastPrice||p.entry):p.entry})">إغلاق</button></td></tr>`).join('');$('positions').innerHTML=rows?`<table><thead><tr><th>ID</th><th>الأصل</th><th>النوع</th><th>الحجم</th><th>الدخول</th><th>SL</th><th>TP</th><th>عائم</th><th>إجراء</th></tr></thead><tbody>${rows}</tbody></table>`:'<div class="empty">لا توجد صفقات مفتوحة.</div>';let closed=state.closed.map(p=>`<tr><td>${p.id}</td><td>${p.asset}</td><td>${p.side}</td><td>${p.entry.toFixed(2)}</td><td>${p.exit.toFixed(2)}</td><td class="${p.pnl>=0?'buy':'sell'}">${money(p.pnl)}</td><td>${new Date(p.closed).toLocaleString()}</td></tr>`).join('');$('closedTrades').innerHTML=closed?`<table><thead><tr><th>ID</th><th>الأصل</th><th>النوع</th><th>الدخول</th><th>الخروج</th><th>P&L</th><th>وقت الإغلاق</th></tr></thead><tbody>${closed}</tbody></table>`:'<div class="empty">لا توجد صفقات مغلقة.</div>';updateFloating()}
+function startStream(){if(asset()!=='BTCUSD')return alert('البث المباشر الاختياري متاح حالياً للبتكوين فقط. الذهب يتحدث يدوياً حسب مصدره.');if(streamOn){stopStream();return}try{stream=new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@trade');stream.onmessage=e=>{let x=JSON.parse(e.data),p=+x.p;if(Number.isFinite(p)){lastPrice=p;checkStops(p,'BTCUSD');$('price').textContent=money(p);$('asof').textContent='Binance stream · '+new Date(x.T).toLocaleTimeString();let t=Math.floor(x.T/1000),last=bars.at(-1);if(last){let period=$('interval').value==='5m'?300:$('interval').value==='15m'?900:$('interval').value==='30m'?1800:$('interval').value==='1h'?3600:86400,bt=Math.floor(t/period)*period;if(bt===last.time){last.high=Math.max(last.high,p);last.low=Math.min(last.low,p);last.close=p;candle.update(last);line.update({time:last.time,value:p})}else if(bt>last.time){let b={time:bt,open:p,high:p,low:p,close:p,volume:0};bars.push(b);candle.update(b);line.update({time:bt,value:p})}}updateFloating()}};stream.onopen=()=>{$('stream').textContent='إيقاف البث المباشر';$('stream').classList.add('active');streamOn=true};stream.onerror=()=>{$('status').className='notice err';$('status').textContent='تعذر الاتصال ببث Binance. جرّب التحديث اليدوي.';stopStream()};stream.onclose=()=>{streamOn=false;$('stream').textContent='بدء البث المباشر';$('stream').classList.remove('active')}}catch(e){alert('لم يمكن بدء البث: '+e.message)}}
+function stopStream(){if(stream){stream.onclose=null;stream.close();stream=null}streamOn=false;$('stream').textContent='بدء البث المباشر';$('stream').classList.remove('active')}
+$('refresh').onclick=loadMarket;$('asset').onchange=()=>{stopStream();loadMarket()};$('range').onchange=loadMarket;$('interval').onchange=loadMarket;$('candles').onclick=()=>modeSet('candles');$('line').onclick=()=>modeSet('line');$('ema20').onclick=()=>toggleSeries('ema20',ema20s);$('ema50').onclick=()=>toggleSeries('ema50',ema50s);$('bb').onclick=()=>{let v=!bbU.options().visible;bbU.applyOptions({visible:v});bbL.applyOptions({visible:v});$('bb').classList.toggle('active',v)};$('vwap').onclick=()=>toggleSeries('vwap',vwapS);$('stream').onclick=startStream;$('analyze').onclick=analyze;$('buy').onclick=()=>openTrade('BUY',lastPrice,+$('sl').value,+$('tp').value,$('tradeNote').value);$('sell').onclick=()=>openTrade('SELL',lastPrice,+$('sl').value,+$('tp').value,$('tradeNote').value);$('resetDemo').onclick=()=>{if(confirm('إعادة الحساب إلى 25,000 دولار وحذف سجل الصفقات؟')){state={balance:25000,realized:0,positions:[],closed:[],nextId:1};saveState()}};document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===b.dataset.section))});$('export').onclick=()=>{let rows=[['id','asset','side','qty','entry','exit','pnl','opened','closed'],...state.closed.map(p=>[p.id,p.asset,p.side,p.qty,p.entry,p.exit,p.pnl,p.opened,p.closed])];let csv=rows.map(r=>r.join(',')).join('\n'),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='HS4GH_TITAN_trades.csv';a.click();URL.revokeObjectURL(a.href)};
+initChart();renderDemo();window.addEventListener('beforeunload',stopStream);
+</script></body></html>
