@@ -1,28 +1,78 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#091321">
-<title>HS4GH TITAN — DEMO Dashboard</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070d18">
+<title>HS4GH TITAN — Professional Trading Terminal</title>
 <style>
-:root{color-scheme:dark;--bg:#091321;--panel:#111f33;--line:#263a56;--txt:#edf4ff;--muted:#9db0ca;--green:#39d6a0;--red:#ff7480;--blue:#79aaff;--gold:#f5ca70}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0,#1b3557 0,transparent 42%),var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}.wrap{max-width:1080px;margin:auto;padding:22px 15px 42px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#3768a8,#1c2e4c);font-weight:900;font-size:22px}.title{font-size:22px;font-weight:900;letter-spacing:.5px}.sub,.muted{color:var(--muted);font-size:12px;margin-top:4px}.pill{border:1px solid #28664f;color:var(--green);background:#12382d;padding:8px 12px;border-radius:99px;font-size:12px;font-weight:800}.btn{background:#315f9d;border:0;color:white;padding:11px 15px;border-radius:11px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.card{background:linear-gradient(155deg,var(--panel),#0e1a2b);border:1px solid var(--line);border-radius:17px;padding:16px;box-shadow:0 12px 28px #0003}.label{color:var(--muted);font-size:12px}.value{font-size:25px;font-weight:900;margin-top:9px;direction:ltr;text-align:right}.section{margin-top:17px}.section h2{font-size:16px;margin:0 0 12px}.status{font-size:12px;color:var(--muted);padding:12px 2px;min-height:35px}.tablewrap{overflow:auto}table{width:100%;min-width:650px;border-collapse:collapse}th,td{text-align:right;padding:11px 8px;border-bottom:1px solid var(--line);font-size:12px}th{color:var(--muted)}.buy{color:var(--green);font-weight:900}.sell{color:var(--red);font-weight:900}.empty{text-align:center;color:var(--muted);padding:22px}.notice{margin-top:16px;border:1px solid #715b2b;background:#3b301855;color:#f5dda2;padding:13px;border-radius:13px;font-size:12px;line-height:1.8}.foot{text-align:center;color:var(--muted);font-size:11px;margin-top:22px}@media(max-width:700px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.value{font-size:21px}}@media(max-width:360px){.wrap{padding:14px 10px}.grid{gap:8px}.card{padding:12px}}
-</style></head>
-<body><main class="wrap">
-<header class="top"><div class="brand"><div class="logo">T</div><div><div class="title">HS4GH TITAN</div><div class="sub">لوحة متابعة التداول التجريبي · XAUUSD</div></div></div><div style="display:flex;align-items:center;gap:9px"><span class="pill">DEMO ONLY</span><button class="btn" id="refresh">تحديث ↻</button></div></header>
-<section class="grid">
-<div class="card"><div class="label">رصيد الحساب</div><div class="value" id="balance">—</div><div class="muted">USD</div></div>
-<div class="card"><div class="label">حقوق الحساب</div><div class="value" id="equity">—</div><div class="muted">Equity</div></div>
-<div class="card"><div class="label">الصفقات المفتوحة</div><div class="value" id="open">—</div><div class="muted">Open trades</div></div>
-<div class="card"><div class="label">إجمالي الصفقات المعروضة</div><div class="value" id="total">—</div><div class="muted">Trade records</div></div>
+:root{--bg:#070d18;--surface:#0d1727;--surface2:#111f33;--surface3:#172943;--stroke:#233651;--text:#eaf1fb;--muted:#91a4bd;--green:#36d6a0;--red:#ff6478;--gold:#f2c56c;--blue:#71a8ff;--cyan:#5bd6e8;--shadow:0 18px 50px #0005}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 75% -10%,#18345a 0,transparent 34%),radial-gradient(ellipse at 0% 30%,#10243b 0,transparent 28%),var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}
+button{font:inherit;cursor:pointer}.app{max-width:1500px;margin:auto;padding:22px 22px 50px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0 22px;border-bottom:1px solid #ffffff12}.brand{display:flex;align-items:center;gap:13px}.mark{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#3b75c5,#142b4a);box-shadow:0 9px 28px #1d579b55;font-weight:900;font-size:22px}.brand h1{font-size:19px;letter-spacing:1.8px;margin:0}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:4px;letter-spacing:1px}.topright{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--stroke);background:#0d1b2d;padding:8px 11px;border-radius:999px;font-size:11px;color:var(--muted)}.dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px currentColor}.demo{color:var(--green);border-color:#23684f;background:#0c2b23}.btn{border:1px solid #355781;background:linear-gradient(135deg,#2d5d9d,#234878);color:white;padding:10px 15px;border-radius:10px;font-weight:700;font-size:12px}.btn.secondary{background:#14243a;border-color:var(--stroke);color:#d7e5f7}.btn:disabled{opacity:.55;cursor:wait}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;padding:25px 0 20px}.eyebrow{font-size:10px;letter-spacing:2px;color:var(--blue);font-weight:800}.hero h2{font-size:25px;margin:8px 0 6px}.hero p{margin:0;color:var(--muted);font-size:12px;line-height:1.8}.hero-meta{text-align:left;color:var(--muted);font-size:11px;line-height:1.9}
+.grid{display:grid;gap:13px}.metrics{grid-template-columns:repeat(4,minmax(0,1fr))}.panel{background:linear-gradient(155deg,#101d30ed,#0b1524f2);border:1px solid var(--stroke);border-radius:16px;box-shadow:var(--shadow)}.metric{padding:17px 18px;min-height:112px;position:relative;overflow:hidden}.metric:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;background:#4b8fe40b;left:-24px;top:-35px}.metric .label{font-size:11px;color:var(--muted)}.metric .value{font-size:25px;font-weight:800;direction:ltr;text-align:right;margin-top:13px;letter-spacing:.3px}.metric .foot{font-size:10px;color:#71869f;margin-top:6px}.positive{color:var(--green)}.negative{color:var(--red)}
+.main{grid-template-columns:minmax(0,1.7fr) minmax(280px,.8fr);margin-top:14px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid #ffffff10}.panel-head h3{font-size:13px;margin:0}.muted{color:var(--muted);font-size:10px}.chartbox{padding:14px 18px 17px}.chart-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.symbol{font-weight:800;font-size:14px}.price{font-size:19px;font-weight:800;direction:ltr}.chart-placeholder{height:205px;border:1px dashed #2b405d;border-radius:12px;background:linear-gradient(180deg,#11223a66,#0b172766);display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted);font-size:11px;line-height:1.9;padding:20px}.timeframes{display:flex;gap:6px;flex-wrap:wrap}.tf{padding:6px 9px;border-radius:7px;background:#14243a;color:var(--muted);font-size:10px;border:1px solid transparent}.tf.active{border-color:#4777b5;color:#cfe2ff;background:#1b3555}
+.side{padding:17px}.side h3{margin:0 0 14px;font-size:13px}.statusrow{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #ffffff10;font-size:11px}.statusrow:last-child{border:0}.state{color:var(--gold);font-weight:700}.state.ok{color:var(--green)}.state.bad{color:var(--red)}
+.lower{grid-template-columns:1.25fr .75fr;margin-top:14px}.tablewrap{overflow:auto;padding:0 15px 12px}table{width:100%;border-collapse:collapse;min-width:650px}th,td{padding:12px 9px;text-align:right;border-bottom:1px solid #ffffff0e;font-size:11px;white-space:nowrap}th{color:var(--muted);font-weight:600}td{color:#dce7f5}.sidepanel{padding:17px}.sidepanel h3{font-size:13px;margin:0 0 14px}.signal{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #ffffff10;font-size:11px}.signal:last-child{border:0}.tag{padding:5px 8px;border-radius:7px;background:#20334d;color:#b7c8dd;font-size:10px}.tag.buy{color:var(--green);background:#12372c}.tag.sell{color:var(--red);background:#3a1c29}.warning{margin-top:15px;padding:14px 16px;border:1px solid #6b552d;background:#2b2416;border-radius:13px;color:#f2d99b;font-size:11px;line-height:1.9}.footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#687d96;font-size:10px;margin-top:18px}
+@media(max-width:900px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.main,.lower{grid-template-columns:1fr}.hero{align-items:flex-start;flex-direction:column}.hero-meta{text-align:right}}
+@media(max-width:480px){.app{padding:13px 11px 35px}.topbar{align-items:flex-start}.brand h1{font-size:16px}.topright{justify-content:flex-end}.hero h2{font-size:21px}.metric{padding:14px;min-height:100px}.metric .value{font-size:21px}.chip{font-size:10px;padding:7px 9px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+ <div class="brand"><div class="mark">T</div><div><h1>HS4GH TITAN</h1><small>QUANT TRADING TERMINAL · DEMO</small></div></div>
+ <div class="topright"><span class="chip demo"><span class="dot" style="background:var(--green)"></span> DEMO ONLY</span><span class="chip"><span class="dot" id="apiDot"></span><span id="apiState">جارٍ فحص الاتصال</span></span><button class="btn" id="refresh">تحديث الآن ↻</button></div>
+</header>
+<section class="hero"><div><div class="eyebrow">TRADING INTELLIGENCE / 01</div><h2>مركز القيادة والتحكم</h2><p>متابعة حساب التداول التجريبي، الصفقات، وإشارات محرك HS4GH TITAN من لوحة واحدة.</p></div><div class="hero-meta">الإصدار: واجهة متابعة تجريبية<br>السوق الأساسي: XAUUSD · الذهب<br>آخر تحديث: <span id="lastUpdate">—</span></div></section>
+<section class="grid metrics">
+ <article class="panel metric"><div class="label">رصيد الحساب · BALANCE</div><div class="value" id="balance">—</div><div class="foot">USD · حساب تجريبي</div></article>
+ <article class="panel metric"><div class="label">حقوق الحساب · EQUITY</div><div class="value" id="equity">—</div><div class="foot">القيمة الحالية من الخادم</div></article>
+ <article class="panel metric"><div class="label">الصفقات المفتوحة · OPEN</div><div class="value" id="openCount">—</div><div class="foot">مراكز التداول التجريبية</div></article>
+ <article class="panel metric"><div class="label">الربح / الخسارة · OPEN P/L</div><div class="value" id="openPnl">—</div><div class="foot">USD · حسب سجل الصفقات</div></article>
 </section>
-<div class="status" id="status">جاري الاتصال بمحرك التداول...</div>
-<section class="section card"><h2>الصفقات التجريبية</h2><div class="tablewrap"><table><thead><tr><th>الرمز</th><th>الاتجاه</th><th>اللوت</th><th>الدخول</th><th>وقف الخسارة</th><th>الهدف</th><th>الحالة</th><th>الربح/الخسارة</th></tr></thead><tbody id="rows"><tr><td colspan="8" class="empty">جاري التحميل...</td></tr></tbody></table></div></section>
-<div class="notice"><b>مهم:</b> هذه لوحة عرض لحساب DEMO فقط. لا ترسل أوامر شراء أو بيع ولا تتصل بحساب JustMarkets الحقيقي. نجاح اتصال API لا يثبت وحده أن التداول الآلي يعمل باستمرار. البيانات تُقرأ من مسارات الحساب والصفقات الموجودة في محرك Cloudflare.</div>
-<div class="foot">HS4GH TITAN · DEMO ENVIRONMENT · تحديث تلقائي كل 30 ثانية</div>
-</main>
+<section class="grid main">
+ <article class="panel">
+  <div class="panel-head"><h3>مخطط السوق · MARKET OVERVIEW</h3><span class="muted">بيانات مباشرة عند توفر مسار السوق</span></div>
+  <div class="chartbox"><div class="chart-top"><div><div class="symbol">XAUUSD <span class="muted">/ GOLD</span></div><div class="muted">Spot Gold · 1 Minute</div></div><div class="price" id="goldPrice">—</div></div>
+   <div class="timeframes"><span class="tf active">M1</span><span class="tf">M5</span><span class="tf">M15</span><span class="tf">H1</span><span class="tf">H4</span></div>
+   <div class="chart-placeholder">المخطط غير موصول بعد بمسار شموع عام.<br>لن نعرض أسعاراً أو رسوماً وهمية. عند تجهيز مسار السوق سنعرض الشموع الفعلية هنا.</div>
+  </div>
+ </article>
+ <aside class="panel side"><h3>حالة النظام · SYSTEM HEALTH</h3>
+  <div class="statusrow"><span>Cloudflare Worker</span><b class="state" id="workerState">قيد الفحص</b></div>
+  <div class="statusrow"><span>D1 Database</span><b class="state" id="dbState">غير مؤكد</b></div>
+  <div class="statusrow"><span>وضع الحساب</span><b class="state ok">DEMO ONLY</b></div>
+  <div class="statusrow"><span>التحليل الدوري</span><b class="state" id="analysisState">غير مؤكد</b></div>
+  <div class="statusrow"><span>التنفيذ الآلي</span><b class="state">يحتاج تحقق</b></div>
+  <div class="statusrow"><span>هدف 5 صفقات/دقيقة</span><b class="state">غير مفعّل</b></div>
+ </aside>
+</section>
+<section class="grid lower">
+ <article class="panel"><div class="panel-head"><h3>سجل الصفقات · TRADE BOOK</h3><span class="muted" id="tradeTotal">—</span></div>
+  <div class="tablewrap"><table><thead><tr><th>الرمز</th><th>الاتجاه</th><th>الحجم</th><th>الدخول</th><th>SL</th><th>TP</th><th>الحالة</th><th>P/L</th></tr></thead><tbody id="trades"><tr><td colspan="8" style="text-align:center;color:#91a4bd">بانتظار بيانات الخادم...</td></tr></tbody></table></div>
+ </article>
+ <article class="panel sidepanel"><h3>آخر إشارات التحليل · SIGNALS</h3><div class="signal"><span>محرك التحليل</span><span class="tag">EMA / RSI</span></div><div class="signal"><span>ICT / SMC</span><span class="tag">غير مكتمل</span></div><div class="signal"><span>BTCUSD</span><span class="tag">غير مفعّل</span></div><div class="signal"><span>تكرار التشغيل</span><span class="tag">Cron · كل دقيقة</span></div><div class="signal"><span>تنفيذ الصفقات</span><span class="tag">DEMO · يحتاج تحقق</span></div></article>
+</section>
+<div class="warning"><b>مهم — شفافية التشغيل:</b> هذه واجهة متابعة فقط ولا ترسل أوامر تداول. نجاح الاتصال ووجود صفقة DEMO واحدة لا يثبتان جاهزية نظام سكالبينغ بخمس صفقات كل دقيقة. هذا الهدف يحتاج تعديلات واختبارات مستقلة على المحرك، حدود المخاطر، منع تكرار الأوامر، وإدارة الصفقات. لا توجد أي صفقات حقيقية أو اتصال بحساب وسيط من هذه الواجهة.</div>
+<footer class="footer"><span>HS4GH TITAN · PROFESSIONAL DEMO TERMINAL</span><span>بيانات الحساب والصفقات تُقرأ من API فقط · لا مفاتيح سرية داخل المتصفح</span></footer>
+</div>
 <script>
-const API='https://hs4gh-titan-bot.housammt5.workers.dev';const el=id=>document.getElementById(id);const fmt=x=>Number.isFinite(Number(x))?Number(x).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';
-async function get(path){const r=await fetch(API+path,{cache:'no-store',headers:{Accept:'application/json'}});const j=await r.json();if(!r.ok||j.success===false)throw Error(j.error||('HTTP '+r.status));return j}
-function rowsFrom(j){if(Array.isArray(j))return j;for(const k of ['trades','positions','data','results'])if(Array.isArray(j[k]))return j[k];return []}
-async function load(){el('refresh').disabled=true;el('status').textContent='جاري تحديث بيانات الحساب والصفقات...';try{const [a,t]=await Promise.all([get('/api/account'),get('/api/trades')]);const acc=a.account||a.data||a;const bal=acc.balance??a.balance;const eq=acc.equity??a.equity??bal;el('balance').textContent=fmt(bal);el('equity').textContent=fmt(eq);const list=rowsFrom(t);el('total').textContent=list.length;el('open').textContent=list.filter(x=>String(x.status||'').toUpperCase()==='OPEN').length;el('rows').innerHTML=list.length?list.slice(0,50).map(x=>{const side=String(x.side||'—').toUpperCase();return `<tr><td>${x.symbol||'—'}</td><td class="${side==='BUY'?'buy':side==='SELL'?'sell':''}">${side}</td><td>${x.lot??'—'}</td><td>${fmt(x.entry)}</td><td>${fmt(x.stop_loss)}</td><td>${fmt(x.take_profit)}</td><td>${x.status||'—'}</td><td>${fmt(x.pnl??0)}</td></tr>`}).join(''):'<tr><td colspan="8" class="empty">لا توجد صفقات مسجلة</td></tr>';el('status').textContent='تم الاتصال بنجاح وتحديث بيانات DEMO.';el('status').style.color='var(--green)'}catch(e){el('status').textContent='تعذّر جلب البيانات: '+e.message;el('status').style.color='var(--gold)';el('rows').innerHTML='<tr><td colspan="8" class="empty">تعذّر تحميل الصفقات — تحقق من صلاحيات مسارات API</td></tr>'}finally{el('refresh').disabled=false}}
-el('refresh').addEventListener('click',load);load();setInterval(load,30000);
-</script></body></html>
+const API="https://hs4gh-titan-bot.housammt5.workers.dev";
+const $=id=>document.getElementById(id);
+const fmt=n=>Number.isFinite(Number(n))?Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}):"—";
+const get=(o,ks,d=null)=>{for(const k of ks)if(o&&o[k]!==undefined&&o[k]!==null)return o[k];return d};
+async function api(path){const r=await fetch(API+path,{headers:{Accept:"application/json"},cache:"no-store"});let j={};try{j=await r.json()}catch{}if(!r.ok||j.success===false)throw Error(j.error||("HTTP "+r.status));return j}
+function rowsOf(x){if(Array.isArray(x))return x;for(const k of ["trades","positions","data","results"])if(Array.isArray(x?.[k]))return x[k];return []}
+function render(rows){$("tradeTotal").textContent=rows.length+" سجل";if(!rows.length){$("trades").innerHTML='<tr><td colspan="8" style="text-align:center;color:#91a4bd">لا توجد صفقات في السجل</td></tr>';return}
+$("trades").innerHTML=rows.slice(0,30).map(t=>{let side=String(get(t,["side","type"],"—")).toUpperCase(),c=side==="BUY"?"positive":side==="SELL"?"negative":"";return `<tr><td>${get(t,["symbol"],"—")}</td><td class="${c}">${side}</td><td>${get(t,["lot","volume"],"—")}</td><td>${fmt(get(t,["entry","open_price"]))}</td><td>${fmt(get(t,["stop_loss","sl"]))}</td><td>${fmt(get(t,["take_profit","tp"]))}</td><td>${get(t,["status"],"—")}</td><td>${fmt(get(t,["pnl","profit"],0))}</td></tr>`}).join("")}
+async function refresh(){let b=$("refresh");b.disabled=true;try{
+ const [a,t]=await Promise.all([api("/api/account"),api("/api/trades")]);
+ const acc=a.account||a.data||a;let bal=get(acc,["balance","Balance"]);$("balance").textContent=fmt(bal);$("equity").textContent=fmt(get(acc,["equity","Equity"],bal));
+ let rs=rowsOf(t),op=rs.filter(x=>String(x.status||"").toUpperCase()==="OPEN");$("openCount").textContent=op.length;$("openPnl").textContent=fmt(op.reduce((s,x)=>s+(Number(x.pnl)||0),0));render(rs);
+ $("apiState").textContent="API متصل";$("apiDot").style.background="var(--green)";$("workerState").textContent="متصل";$("workerState").className="state ok";$("dbState").textContent="استجابة ناجحة";$("dbState").className="state ok";$("analysisState").textContent="تحقق من سجل التحليلات";$("analysisState").className="state";
+}catch(e){$("apiState").textContent="فشل جلب API";$("apiDot").style.background="var(--red)";$("workerState").textContent="غير متاح";$("workerState").className="state bad";$("dbState").textContent=e.message;$("dbState").className="state bad";$("trades").innerHTML=`<tr><td colspan="8" style="text-align:center;color:#ff8794">${e.message}</td></tr>`;$("balance").textContent="—";$("equity").textContent="—";$("openCount").textContent="—";$("openPnl").textContent="—"}
+$("lastUpdate").textContent=new Date().toLocaleTimeString("ar-IQ");b.disabled=false}
+$("refresh").addEventListener("click",refresh);refresh();setInterval(refresh,30000);
+</script>
+</body></html>
