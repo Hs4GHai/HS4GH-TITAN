@@ -1,0 +1,171 @@
+const CORS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization"
+};
+const json = (data, status = 200) => new Response(JSON.stringify(data), {
+  status, headers: { ...CORS, "Content-Type": "application/json; charset=utf-8" }
+});
+const iso = () => new Date().toISOString();
+const rnd = (n, d = 4) => Number(Number(n).toFixed(d));
+
+async function init(db) {
+  const statements = [
+    `CREATE TABLE IF NOT EXISTS accounts (id TEXT PRIMARY KEY, balance REAL NOT NULL DEFAULT 25000, equity REAL NOT NULL DEFAULT 25000, currency TEXT NOT NULL DEFAULT 'USD', created_at TEXT NOT NULL)`,
+    `CREATE TABLE IF NOT EXISTS trades (id TEXT PRIMARY KEY, symbol TEXT NOT NULL, side TEXT NOT NULL, lot REAL NOT NULL, entry REAL NOT NULL, stop_loss REAL NOT NULL, take_profit REAL NOT NULL, status TEXT NOT NULL DEFAULT 'OPEN', pnl REAL NOT NULL DEFAULT 0, opened_at TEXT NOT NULL, closed_at TEXT)`,
+    `CREATE INDEX IF NOT EXISTS idx_titan_trades_status ON trades(status)`,
+    `CREATE TABLE IF NOT EXISTS analyses (id INTEGER PRIMARY KEY AUTOINCREMENT, symbol TEXT NOT NULL, signal TEXT NOT NULL, reason TEXT NOT NULL, price REAL, provider TEXT, created_at TEXT NOT NULL)`,
+    `CREATE TABLE IF NOT EXISTS auto_settings (id INTEGER PRIMARY KEY CHECK(id=1), enabled INTEGER NOT NULL DEFAULT 0, mode TEXT NOT NULL DEFAULT 'DEMO_ONLY', symbol TEXT NOT NULL DEFAULT 'BOTH', lot REAL NOT NULL DEFAULT 0.05, max_trades INTEGER NOT NULL DEFAULT 25, risk_percent REAL NOT NULL DEFAULT 0.5, daily_loss_limit REAL NOT NULL DEFAULT 3, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`,
+    `CREATE TABLE IF NOT EXISTS bot_events (id INTEGER PRIMARY KEY AUTOINCREMENT, level TEXT NOT NULL, message TEXT NOT NULL, created_at TEXT NOT NULL)`
+  ];
+  for (const q of statements) await db.prepare(q).run();
+  await db.prepare(`INSERT OR IGNORE INTO accounts(id,balance,equity,currency,created_at) VALUES('DEMO-001',25000,25000,'USD',?)`).bind(iso()).run();
+  await db.prepare(`INSERT OR IGNORE INTO auto_settings(id) VALUES(1)`).run();
+  // Requested paper defaults: both instruments and fixed 0.05 lot.
+  // Trading remains disabled until explicitly enabled by an authenticated admin.
+  await db.prepare(`UPDATE auto_settings
+    SET symbol='BOTH', lot=0.05, max_trades=25,
+        risk_percent=0.5, daily_loss_limit=3, mode='DEMO_ONLY'
+    WHERE id=1`).run();
+}
+async function log(db, level, message) {
+  await db.prepare(`INSERT INTO bot_events(level,message,created_at) VALUES(?,?,?)`).bind(level,String(message).slice(0,500),iso()).run();
+}
+function ema(a,p) {
+  if (a.length < p) return null;
+  const k=2/(p+1); let v=a.slice(0,p).reduce((x,y)=>x+y,0)/p;
+  for(let i=p;i<a.length;i++) v=a[i]*k+v*(1-k);
+  return v;
+}
+function rsi(a,p=14) {
+  if(a.length<=p) return null;
+  let g=0,l=0;
+  for(let i=a.length-p;i<a.length;i++){const d=a[i]-a[i-1];if(d>0)g+=d;else l-=d;}
+  if(l===0)return 100;
+  const rs=g/l;return 100-100/(1+rs);
+}
+async function candles(symbol,env) {
+  if(symbol==="BTCUSD"){
+    const r=await fetch("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=100");
+    if(!r.ok)throw new Error("Binance HTTP "+r.status);
+    const rows=await r.json();
+    return {provider:"Binance BTCUSDT proxy",data:rows.slice(0,-1).map(x=>({o:+x[1],h:+x[2],l:+x[3],c:+x[4]}))};
+  }
+  if(symbol==="XAUUSD"){
+    if(!env.TWELVE_DATA_API_KEY)throw new Error("Missing TWELVE_DATA_API_KEY secret");
+    const u=new URL("https://api.twelvedata.com/time_series");
+    u.searchParams.set("symbol","XAU/USD");u.searchParams.set("interval","1min");
+    u.searchParams.set("outputsize","100");u.searchParams.set("apikey",env.TWELVE_DATA_API_KEY);
+    const r=await fetch(u);if(!r.ok)throw new Error("Twelve Data HTTP "+r.status);
+    const b=await r.json();if(b.status==="error"||!Array.isArray(b.values))throw new Error(b.message||"No XAU/USD data");
+    return {provider:"Twelve Data XAU/USD",data:b.values.slice().reverse().map(x=>({o:+x.open,h:+x.high,l:+x.low,c:+x.close}))};
+  }
+  throw new Error("Unsupported symbol");
+}
+function signalOf(data) {
+  const a=data.map(x=>x.c), f=ema(a,9), s=ema(a,21), r=rsi(a);
+  const recent=data.slice(-15);
+  const tr=recent.slice(1).map((x,i)=>Math.max(x.h-x.l,Math.abs(x.h-recent[i].c),Math.abs(x.l-recent[i].c)));
+  const atr=tr.reduce((x,y)=>x+y,0)/Math.max(1,tr.length);
+  let signal="WAIT";
+  if(f!==null&&s!==null&&r!==null){if(f>s&&r>=52&&r<=68)signal="BUY";if(f<s&&r>=32&&r<=48)signal="SELL";}
+  return {signal,price:a.at(-1),fast:f,slow:s,rsi:r,atr};
+}
+// Paper PnL assumptions only: XAUUSD standard lot=100 oz; BTCUSD lot treated as BTC units.
+function pnl(symbol,side,entry,exit,lot){
+  const units=symbol==="XAUUSD"?lot*100:lot;
+  return (side==="BUY"?exit-entry:entry-exit)*units;
+}
+async function cycle(env) {
+  const db=env.DB;await init(db);
+  const cfg=await db.prepare("SELECT * FROM auto_settings WHERE id=1").first();
+  if(!cfg||cfg.mode!=="DEMO_ONLY"){await log(db,"WARN","Cycle blocked: DEMO_ONLY required");return;}
+  const feeds={};
+  for(const sym of ["XAUUSD","BTCUSD"]){
+    try{
+      const f=await candles(sym,env);
+      if(f.data.length<30 || f.data.some(c => ![c.o,c.h,c.l,c.c].every(Number.isFinite) || c.c<=0 || c.h<c.l))
+        throw new Error("Invalid or insufficient candle data");
+      feeds[sym]=f;const a=signalOf(f.data);
+      if(!Number.isFinite(a.price) || !Number.isFinite(a.atr) || a.atr<=0)
+        throw new Error("Invalid market indicators");
+      await db.prepare("INSERT INTO analyses(symbol,signal,reason,price,provider,created_at) VALUES(?,?,?,?,?,?)")
+        .bind(sym,a.signal,`EMA9 ${rnd(a.fast)} / EMA21 ${rnd(a.slow)} / RSI14 ${rnd(a.rsi,2)} / ATR ${rnd(a.atr)}`,a.price,f.provider,iso()).run();
+      await log(db,"INFO",`${sym} ${a.signal} @ ${a.price}`);
+    }catch(e){await log(db,"ERROR",`${sym} feed: ${e.message}`);}
+  }
+  const open=await db.prepare("SELECT * FROM trades WHERE status='OPEN'").all();
+  for(const t of open.results||[]){
+    const f=feeds[t.symbol];if(!f)continue;const c=f.data.at(-1);let exit=null,why="";
+    if(t.side==="BUY"){if(c.l<=t.stop_loss){exit=t.stop_loss;why="SL";}else if(c.h>=t.take_profit){exit=t.take_profit;why="TP";}}
+    else{if(c.h>=t.stop_loss){exit=t.stop_loss;why="SL";}else if(c.l<=t.take_profit){exit=t.take_profit;why="TP";}}
+    if(exit!==null){
+      const p=rnd(pnl(t.symbol,t.side,t.entry,exit,t.lot),2);
+      const u=await db.prepare("UPDATE trades SET status='CLOSED',pnl=?,closed_at=? WHERE id=? AND status='OPEN'").bind(p,iso(),t.id).run();
+      if(u.meta?.changes===1){await db.prepare("UPDATE accounts SET balance=balance+?,equity=equity+? WHERE id='DEMO-001'").bind(p,p).run();await log(db,"INFO",`${t.symbol} closed ${why}; PnL ${p}`);}
+    }
+  }
+  if(!cfg.enabled)return;
+  const account=await db.prepare("SELECT balance FROM accounts WHERE id='DEMO-001'").first();
+  const bal=Number(account?.balance||25000);
+  const start=new Date();start.setUTCHours(0,0,0,0);
+  const day=await db.prepare("SELECT COALESCE(SUM(pnl),0) pnl FROM trades WHERE status='CLOSED' AND closed_at>=?").bind(start.toISOString()).first();
+  if(Number(day?.pnl||0)<=-bal*(Number(cfg.daily_loss_limit||3)/100)){await log(db,"WARN","Daily loss cap reached; entries paused");return;}
+  const n=await db.prepare("SELECT COUNT(*) n FROM trades WHERE status='OPEN'").first();
+  if(Number(n?.n||0)>=Math.min(25,Number(cfg.max_trades||25)))return;
+  for(const sym of ["XAUUSD","BTCUSD"]){
+    if(cfg.symbol!=="BOTH"&&cfg.symbol!==sym)continue;
+    const f=feeds[sym];if(!f)continue;const a=signalOf(f.data);if(a.signal==="WAIT"||!a.atr||!Number.isFinite(a.atr))continue;
+    const exists=await db.prepare("SELECT id FROM trades WHERE symbol=? AND status='OPEN'").bind(sym).first();if(exists)continue;
+    const lot=0.05,entry=a.price,dist=Math.max(a.atr*1.5,entry*0.001);
+    const sl=a.signal==="BUY"?entry-dist:entry+dist,tp=a.signal==="BUY"?entry+dist*1.5:entry-dist*1.5;
+    const risk=Math.abs(pnl(sym,a.signal,entry,sl,lot)),cap=bal*(Number(cfg.risk_percent||0.5)/100);
+    if(risk>cap){await log(db,"INFO",`${sym} skipped: risk ${rnd(risk,2)} exceeds ${rnd(cap,2)}`);continue;}
+    await db.prepare("INSERT INTO trades(id,symbol,side,lot,entry,stop_loss,take_profit,status,pnl,opened_at) VALUES(?,?,?,?,?,?,?,'OPEN',0,?)")
+      .bind(crypto.randomUUID(),sym,a.signal,lot,entry,rnd(sl,6),rnd(tp,6),iso()).run();
+    await log(db,"INFO",`PAPER ${sym} ${a.signal} 0.05 opened @ ${entry}`);
+  }
+}
+function auth(req,env){return !!env.ADMIN_SECRET&&req.headers.get("Authorization")===`Bearer ${env.ADMIN_SECRET}`;}
+export default {
+  async fetch(req,env){
+    if(req.method==="OPTIONS")return new Response(null,{status:204,headers:CORS});
+    try{
+      if(!env.DB)return json({success:false,error:"D1 binding DB missing"},500);
+      await init(env.DB);const p=new URL(req.url).pathname;
+      if(p==="/"||p==="/api/health")return json({success:true,name:"HS4GH TITAN PAPER ENGINE",version:"1.0.0",status:"ONLINE",database:"CONNECTED",mode:"DEMO_ONLY",autoTrading:"DISABLED_BY_DEFAULT",symbols:["XAUUSD","BTCUSD"]});
+      if(p==="/api/account")return json({success:true,account:await env.DB.prepare("SELECT * FROM accounts WHERE id='DEMO-001'").first()});
+      if(p==="/api/trades")return json({success:true,trades:(await env.DB.prepare("SELECT * FROM trades ORDER BY opened_at DESC LIMIT 100").all()).results||[]});
+      if(p==="/api/analyses")return json({success:true,analyses:(await env.DB.prepare("SELECT * FROM analyses ORDER BY id DESC LIMIT 50").all()).results||[]});
+      if(p==="/api/events")return json({success:true,events:(await env.DB.prepare("SELECT * FROM bot_events ORDER BY id DESC LIMIT 50").all()).results||[]});
+      if(p==="/api/settings")return json({success:true,settings:await env.DB.prepare("SELECT * FROM auto_settings WHERE id=1").first()});
+      if(p==="/api/market"&&req.method==="GET"){
+        const symbol=new URL(req.url).searchParams.get("symbol")||"XAUUSD";
+        if(!["XAUUSD","BTCUSD"].includes(symbol))return json({success:false,error:"Use XAUUSD or BTCUSD"},400);
+        const f=await candles(symbol,env);
+        const a=signalOf(f.data);
+        return json({success:true,symbol,provider:f.provider,price:a.price,signal:a.signal,
+          ema9:rnd(a.fast),ema21:rnd(a.slow),rsi14:rnd(a.rsi,2),atr:rnd(a.atr)});
+      }
+      if(p==="/api/bot"&&req.method==="POST"){
+        if(!auth(req,env))return json({success:false,error:"ADMIN_SECRET required"},401);
+        const b=await req.json();if(typeof b.enabled!=="boolean")return json({success:false,error:"enabled must be boolean"},400);
+        await env.DB.prepare("UPDATE auto_settings SET enabled=?,mode='DEMO_ONLY',updated_at=? WHERE id=1").bind(b.enabled?1:0,iso()).run();
+        return json({success:true,enabled:b.enabled,mode:"DEMO_ONLY"});
+      }
+      if(p==="/api/run-once"&&req.method==="POST"){
+        if(!auth(req,env))return json({success:false,error:"ADMIN_SECRET required"},401);
+        await cycle(env);return json({success:true,message:"Paper cycle completed"});
+      }
+      if(p==="/api/stop"&&req.method==="POST"){
+        if(!auth(req,env))return json({success:false,error:"ADMIN_SECRET required"},401);
+        await env.DB.prepare("UPDATE auto_settings SET enabled=0,updated_at=? WHERE id=1").bind(iso()).run();
+        return json({success:true,enabled:false,message:"Paper bot stopped"});
+      }
+      return json({success:false,error:"Not found"},404);
+    }catch(e){console.error(e);return json({success:false,error:e.message||"Internal error"},500);}
+  },
+  async scheduled(controller,env,ctx){
+    ctx.waitUntil(cycle(env).catch(async e=>{console.error(e);try{await init(env.DB);await log(env.DB,"ERROR",e.message||e);}catch(_){}}));
+  }
+};
