@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HS4GH TITAN | DEMO 3s Update</title>
+<title>HS4GH TITAN | Institutional Command Center</title>
 <style>
 :root{--bg:#080d16;--panel:#101a29;--panel2:#142238;--line:#22344b;--text:#edf3fb;--muted:#8da1bb;--gold:#e5b84e;--green:#28d49a;--red:#ff647c;--blue:#6da9ff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(1000px 500px at 80% -10%,#1c3150 0%,transparent 65%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
@@ -32,20 +32,29 @@ button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1500px;mar
 .monitor-table td:first-child{font-family:ui-monospace,monospace;color:#9fb5d2}
 @media(max-width:520px){.monitor-chart{height:390px}.monitor-filters>*{width:100%}}
 
+
+.company-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:14px}
+.company-card{background:linear-gradient(145deg,#121f31,#0b1421);border:1px solid #263a52;border-radius:16px;padding:16px;min-width:0}
+.company-card h3{font-size:13px;margin:0 0 12px;color:#f2d27c}.company-card p,.company-card li{font-size:11px;line-height:1.9;color:#9db0c7}.company-card ul{margin:0;padding-right:18px}.company-kpi{font-size:23px;font-weight:800;margin:6px 0;color:#f4f7fb}.company-label{font-size:10px;color:#849ab5}.company-wide{grid-column:span 2}.org{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.org div{border:1px solid #263a52;background:#0a1421;border-radius:10px;padding:10px;font-size:10px;color:#c6d3e4}.org b{display:block;color:#e8c66c;margin-bottom:4px}.module-tag{display:inline-block;padding:4px 7px;border-radius:6px;background:#202b3c;color:#b8c9df;font-size:9px;margin:2px}
+@media(max-width:900px){.company-grid{grid-template-columns:1fr 1fr}.company-wide{grid-column:span 2}}
+@media(max-width:520px){.company-grid{grid-template-columns:1fr}.company-wide{grid-column:span 1}.org{grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 <body><main class="app">
 <header class="top">
- <div class="brand"><div class="logo">T</div><div><h1>HS4GH TITAN</h1><small>GOLD SCALPING COMMAND CENTER</small></div></div>
+ <div class="brand"><div class="logo">T</div><div><h1>HS4GH TITAN</h1><small>INSTITUTIONAL QUANT COMMAND CENTER</small></div></div>
  <div class="topright"><span class="pill demo"><i class="dot"></i> DEMO ONLY</span><span class="pill" id="connection"><i class="dot" style="background:#e5b84e"></i> جاري فحص الخادم</span><button class="btn" id="refresh">تحديث البيانات ↻</button></div>
 </header>
 
 <nav class="page-nav">
- <button class="navbtn active" data-page="dashboardPage">لوحة القيادة</button>
+ <button class="navbtn active" data-page="dashboardPage">مركز القيادة</button>
  <button class="navbtn" data-page="monitorPage">مراقبة الصفقات</button>
+ <button class="navbtn" data-page="companyPage">إدارة الشركة</button>
+ <button class="navbtn" data-page="aiPage">مساعد TITAN AI</button>
 </nav>
 <div id="dashboardPage">
-<section class="hero"><div><div class="eyebrow">TITAN / XAUUSD / AUTOMATED PAPER TRADING</div><h2>مركز قيادة سكالبينغ الذهب</h2><p>شارت TradingView مباشر، إعدادات البوت، ومتابعة الصفقات التجريبية من لوحة واحدة.</p></div><div class="clock"><div id="date">—</div><strong id="time">—</strong></div></section>
+<section class="hero"><div><div class="eyebrow">TITAN / XAUUSD / AUTOMATED PAPER TRADING</div><h2>المركز المؤسسي لإدارة تداول الذهب</h2><p>منصة تشغيل ومراقبة وإدارة مخاطر لمحرك HS4GH TITAN — بيئة محاكاة DEMO فقط.</p></div><div class="clock"><div id="date">—</div><strong id="time">—</strong></div></section>
 <section class="metrics">
  <div class="metric"><label>رصيد DEMO</label><strong id="balance">—</strong><small>USD · من خادم TITAN</small></div>
  <div class="metric"><label>حقوق الحساب</label><strong id="equity">—</strong><small>Equity</small></div>
@@ -68,21 +77,23 @@ button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1500px;mar
   <article class="card">
    <div class="head"><h3>إعدادات بوت السكالبينغ</h3><span class="tag">PAPER ENGINE</span></div>
    <div class="settinggrid">
+    <div class="field"><label>اتجاهات التداول</label><input value="BUY + SELL · كلاهما مفعّل" readonly></div>
+    <div class="field"><label>دفعة التنفيذ</label><input value="5 صفقات / كل ثانيتين" readonly></div>
     <div class="field"><label>الرمز</label><input value="XAUUSD · GOLD" readonly></div>
     <div class="field"><label>نوع الاستراتيجية</label><input value="Scalping" readonly></div>
-    <div class="field"><label>Take Profit · حركة السعر</label><input id="tp" type="number" value="0.40" step="0.01"></div>
-    <div class="field"><label>Stop Loss · حركة السعر</label><input id="sl" type="number" value="0.40" step="0.01"></div>
-    <div class="field"><label>الهدف التشغيلي / دقيقة</label><input value="صفقتان / 3 ثوانٍ" readonly></div>
-    <div class="field"><label>حجم اللوت</label><input id="lot" type="number" value="0.01" min="0.01" step="0.01"></div>
+    <div class="field"><label>Take Profit · حركة السعر</label><input id="tp" type="number" value="0.80" step="0.01" readonly></div>
+    <div class="field"><label>Stop Loss · حركة السعر</label><input id="sl" type="number" value="0.80" step="0.01" readonly></div>
+    <div class="field"><label>الهدف التشغيلي / دقيقة</label><input value="5 صفقات / ثانيتين" readonly></div>
+    <div class="field"><label>حجم اللوت</label><input id="lot" type="number" value="0.02" min="0.02" max="0.02" step="0.01" readonly></div>
    </div>
-   <div class="statusbox" style="margin-top:11px">الهدف التشغيلي: محاولة إنشاء صفقتان تجريبيتان كل 3 ثوانٍ أثناء بقاء الصفحة مفتوحة. قد لا تتوفر فرص أو قد تمنعها حدود المحرك. لا يوجد ضمان لعدد ثابت من الصفقات أو للربح.</div>
+   <div class="statusbox" style="margin-top:11px">الهدف التشغيلي: محاولة إنشاء 5 صفقات تجريبية كل ثانيتين أثناء بقاء الصفحة مفتوحة. قد لا تتوفر فرص أو قد تمنعها حدود المحرك. لا يوجد ضمان لعدد ثابت من الصفقات أو للربح.</div>
    <div class="actions" style="margin-top:11px"><button class="btn primary" id="start">تشغيل البوت DEMO</button><button class="btn danger" id="stop">إيقاف البوت</button></div>
    <button class="btn" id="sync" style="width:100%;margin-top:8px">مزامنة حالة المحرك</button>
    <div class="statusbox" id="message" style="margin-top:10px">لم يتم التحقق من اتصال المحرك بعد.</div>
   </article>
   <article class="card">
    <div class="head"><h3>مواصفات التنفيذ</h3><span class="tag">CONFIG</span></div>
-   <div class="two"><div class="statusbox">TP<br><strong style="color:var(--green)">+0.40</strong></div><div class="statusbox">SL<br><strong style="color:var(--red)">−0.40</strong></div></div>
+   <div class="two"><div class="statusbox">TP<br><strong style="color:var(--green)">+0.80</strong></div><div class="statusbox">SL<br><strong style="color:var(--red)">−0.80</strong></div></div>
    <div class="statusbox" style="margin-top:9px">البيئة: DEMO داخلي فقط<br>الأداة: الذهب XAUUSD<br>الأسلوب: صفقات قصيرة وسريعة<br>الشارت: TradingView</div>
   </article>
  </aside>
@@ -123,6 +134,41 @@ button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1500px;mar
   </tr></thead><tbody id="monitorTrades"><tr><td colspan="11" class="empty">بانتظار بيانات الصفقات</td></tr></tbody></table></div>
  </article>
  <div class="notice">هذه بيانات محاكاة داخلية من قاعدة D1 وليست صفقات وسيط حقيقي. الشارت الثاني من TradingView وقد يختلف سعره عن مزود بيانات المحرك.</div>
+</section>
+
+
+<section id="companyPage" class="page-hidden">
+ <div class="hero"><div><div class="eyebrow">HS4GH GROUP / CORPORATE OPERATIONS</div><h2>إدارة الشركة والحوكمة التشغيلية</h2><p>مساحة داخلية لتنظيم الأقسام، السياسات، الأداء، ومراقبة المحرك.</p></div><div class="clock">COMPANY WORKSPACE<br><strong>VERSION 6.0</strong></div></div>
+ <section class="company-grid">
+  <article class="company-card"><div class="company-label">EXECUTIVE OFFICE</div><h3>مكتب الإدارة التنفيذية</h3><div class="company-kpi">HS4GH</div><p>المؤسس والإدارة العليا — تحديد الأهداف، اعتماد السياسات، ومراجعة تقارير الأداء والمخاطر.</p><span class="module-tag">Owner</span><span class="module-tag">Governance</span></article>
+  <article class="company-card"><div class="company-label">TRADING OPERATIONS</div><h3>قسم عمليات التداول</h3><div class="company-kpi">XAUUSD</div><p>إدارة دورة المحرك، مراقبة الصفقات، متابعة جودة بيانات السوق، ومراجعة التنفيذ الورقي.</p><span class="module-tag">Execution</span><span class="module-tag">Monitoring</span></article>
+  <article class="company-card"><div class="company-label">RISK & COMPLIANCE</div><h3>إدارة المخاطر والامتثال</h3><div class="company-kpi">0.5%</div><p>حد مخاطرة تشغيلي للدفعة، سقف 25 مركزاً مفتوحاً، وحد خسارة يومي 3% في إعدادات المحاكاة.</p><span class="module-tag">Risk Gate</span><span class="module-tag">DEMO ONLY</span></article>
+  <article class="company-card company-wide"><div class="company-label">ORGANIZATION STRUCTURE</div><h3>الهيكل التنظيمي المقترح</h3><div class="org"><div><b>الإدارة التنفيذية</b>الاستراتيجية والقرارات والحوكمة</div><div><b>البحوث والتحليل</b>EMA / RSI · مراجعة الإشارات</div><div><b>عمليات التداول</b>إدارة الدفعات والمراكز</div><div><b>المخاطر والامتثال</b>حدود التعرض والإيقاف</div><div><b>التقنية والهندسة</b>Cloudflare · D1 · API</div><div><b>التدقيق والجودة</b>سجل الأحداث واختبار النتائج</div></div><p>الأقسام هنا وحدات تنظيمية داخل لوحة الإدارة، وليست موظفين أو وكلاء ذكاء اصطناعي حقيقيين.</p></article>
+  <article class="company-card"><div class="company-label">ENGINE POLICY</div><h3>سياسة المحرك الحالية</h3><ul><li>خمسة مراكز كحد أقصى لكل دورة</li><li>فاصل مستهدف: ثانيتان</li><li>اللوت الثابت: 0.02</li><li>TP / SL: 0.80 حركة سعرية</li><li>الحد الأعلى للمراكز: 25</li></ul></article>
+  <article class="company-card"><div class="company-label">RESEARCH DESK</div><h3>مكتب الأبحاث والاستراتيجية</h3><p>الإصدار الحالي يستخدم EMA 9/21 وRSI 14 على شموع دقيقة واحدة. عند WAIT يستخدم اتجاه EMA كخيار اختبار ضغط، وليس كإشارة مثبتة.</p><span class="module-tag">Strategy v1</span><span class="module-tag">Research</span></article>
+  <article class="company-card"><div class="company-label">TECHNOLOGY & DATA</div><h3>البنية التقنية ومصادر البيانات</h3><p>واجهة ويب + Cloudflare Worker + قاعدة D1 + Twelve Data. الشارت المرئي من TradingView، وقد يختلف عن مصدر سعر المحرك.</p><span class="module-tag">API</span><span class="module-tag">Database</span></article>
+  <article class="company-card"><div class="company-label">AUDIT & CONTROL</div><h3>التدقيق وسجل القرارات</h3><p id="companyAudit">تظهر آخر أحداث المحرك في سجل الأحداث عند مزامنة الحالة. جميع النتائج في هذه النسخة محاكاة داخلية.</p><button class="btn" onclick="sync()">تحديث تقرير الحالة</button></article>
+  <article class="company-card"><div class="company-label">ROADMAP</div><h3>خارطة التطوير</h3><ul><li>اختبارات تاريخية وقياس الأداء</li><li>تحسين إدارة السبريد والانزلاق</li><li>تسجيل Equity لحظي واقعي</li><li>صلاحيات متعددة وسجل تدقيق أوسع</li><li>مراجعة أمنية قبل أي نشر عام</li></ul></article>
+ </section>
+ <div class="notice">تنبيه مؤسسي: هذا الإصدار منصة DEMO / Paper Trading داخلية. لا يتصل بحساب JustMarkets ولا يرسل أوامر إلى وسيط. دورة فتح الصفقات كل ثانيتين لا تعني أن بيانات السعر تتحدث كل ثانيتين؛ مصدر المحرك الحالي شموع 1 دقيقة، وإغلاق المراكز في Cron قد يتأخر حتى دقيقة.</div>
+</section>
+
+
+<section id="aiPage" class="page-hidden">
+ <div class="hero"><div><div class="eyebrow">TITAN INTELLIGENCE / SUPPORT DESK</div><h2>مساعد TITAN الذكي</h2><p>مساعد فوري يشرح حالة النظام والإعدادات والصفقات وإدارة المخاطر.</p></div><div class="clock">LOCAL ASSISTANT<br><strong>RULE-BASED DEMO</strong></div></div>
+ <div class="company-grid">
+  <article class="company-card company-wide">
+   <div class="company-label">AI CUSTOMER & OPERATIONS ASSISTANT</div><h3>محادثة المساعد</h3>
+   <div id="aiChat" style="height:330px;overflow:auto;background:#08121f;border:1px solid #263a52;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px">
+    <div class="statusbox"><b style="color:#e8c66c">TITAN AI</b><br>أهلاً بك في مركز المساعدة. اسألني عن الشراء والبيع، إعدادات المحرك، الصفقات، المخاطر، أو حالة DEMO.</div>
+   </div>
+   <div style="display:flex;gap:8px;margin-top:10px"><input id="aiInput" aria-label="رسالتك" placeholder="اكتب سؤالك هنا..." style="flex:1;min-width:0;background:#0b1523;color:var(--text);border:1px solid var(--line);padding:12px;border-radius:10px"><button class="btn primary" id="aiSend">إرسال</button></div>
+   <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:9px"><button class="btn aiQuick" data-q="ليش البوت يفتح بيع وشراء؟">الشراء والبيع</button><button class="btn aiQuick" data-q="اشرح إعدادات اللوت والهدف والستوب">إعدادات المحرك</button><button class="btn aiQuick" data-q="شنو حالة الحساب والصفقات؟">حالة الحساب</button><button class="btn aiQuick" data-q="اشرح المخاطر">إدارة المخاطر</button></div>
+   <div class="notice">ملاحظة: هذا مساعد محلي تجريبي بإجابات تلقائية مبنية على قواعد وأسئلة شائعة، وليس نموذج ذكاء اصطناعي متصل بخدمة LLM. لا يرسل أوامر تداول.</div>
+  </article>
+  <article class="company-card"><div class="company-label">KNOWLEDGE BASE</div><h3>قاعدة المعرفة</h3><ul><li>شرح BUY وSELL</li><li>إعدادات XAUUSD</li><li>حساب المخاطر التقديري</li><li>حالة المحرك وقيوده</li><li>شرح سجلات الصفقات</li></ul></article>
+  <article class="company-card"><div class="company-label">SUPPORT OPERATIONS</div><h3>خدمات الدعم</h3><ul><li>مساعدة تشغيل النظام</li><li>تفسير رسائل الخطأ</li><li>إرشادات التحديث</li><li>التنبيه إلى حدود البيانات</li></ul></article>
+ </div>
 </section>
 
 <footer class="footer"><span>HS4GH TITAN · GOLD SCALPING TERMINAL · DEMO ONLY</span><span>TradingView chart · Cloudflare Worker API · No live broker connection</span></footer>
@@ -207,8 +253,8 @@ function renderMonitorTrades(){
  }).join(''):'<tr><td colspan="11" class="empty">لا توجد صفقات مطابقة</td></tr>';
 }
 async function refresh(){try{const [a,t]=await Promise.all([req('/api/account'),req('/api/trades')]);const acc=a.account||a.data||a;const bal=acc.balance??a.balance; $('balance').textContent=fmt(bal);$('equity').textContent=fmt(acc.equity??a.equity??bal);const list=rowsOf(t);$('openCount').textContent=list.filter(x=>String(x.status||'').toUpperCase()==='OPEN').length;renderTrades(list);$('connection').innerHTML='<i class="dot"></i> الخادم متصل';$('workerHealth').textContent='Cloudflare Worker: API account/trades responding';$('message').textContent=''}catch(e){$('connection').innerHTML='<i class="dot" style="background:#ff647c"></i> تعذر الاتصال';$('workerHealth').textContent='Cloudflare Worker: '+e.message;$('message').textContent='تعذر جلب البيانات: '+e.message}}
-async function sync(){try{const s=await req('/api/bot');const enabled=!!(s.autoEnabled??s.enabled);$('botState').textContent=enabled?'يعمل DEMO':'متوقف';$('botState').style.color=enabled?'var(--green)':'var(--muted)';$('botSub').textContent='صفقتان تجريبيتان كل 3 ثوانٍ — الصفحة يجب أن تبقى مفتوحة';$('botSub').textContent=enabled?'صفقتان تجريبيتان كل 3 ثوانٍ أثناء بقاء الصفحة مفتوحة':'البوت متوقف';await refresh()}catch(e){$('botState').textContent='غير مؤكد';$('botSub').textContent='تعذر قراءة حالة المحرك';$('message').textContent='تعذر قراءة حالة البوت: '+e.message}}
-async function setBot(enabled){try{const tp=Number($('tp').value),sl=Number($('sl').value),lot=Number($('lot').value);if(tp!==0.40||sl!==0.40)throw Error('حالياً يجب أن يكون TP وSL كلاهما 0.40');if(!(lot>0&&lot<=0.05))throw Error('اللوت المسموح من 0.01 إلى 0.05');await req('/api/bot',{method:'POST',body:JSON.stringify({enabled,mode:'DEMO_ONLY',symbol:'XAUUSD',take_profit:0.40,stop_loss:0.40,lot,target_trades_per_minute:40})});$('message').textContent=enabled?'تم تفعيل التداول الورقي DEMO.':'تم إيقاف البوت.';await sync()}catch(e){$('message').textContent='لم يتم تغيير حالة البوت: '+e.message}finally{}}
+async function sync(){try{const s=await req('/api/bot');const enabled=!!(s.autoEnabled??s.enabled);$('botState').textContent=enabled?'يعمل DEMO':'متوقف';$('botState').style.color=enabled?'var(--green)':'var(--muted)';$('botSub').textContent='5 صفقات تجريبية كل ثانيتين — الصفحة يجب أن تبقى مفتوحة';$('botSub').textContent=enabled?'5 صفقات تجريبية كل ثانيتين أثناء بقاء الصفحة مفتوحة':'البوت متوقف';await refresh()}catch(e){$('botState').textContent='غير مؤكد';$('botSub').textContent='تعذر قراءة حالة المحرك';$('message').textContent='تعذر قراءة حالة البوت: '+e.message}}
+async function setBot(enabled){try{const tp=Number($('tp').value),sl=Number($('sl').value),lot=Number($('lot').value);if(tp!==0.80||sl!==0.80)throw Error('حالياً يجب أن يكون TP وSL كلاهما 0.80');if(!(lot===0.02))throw Error('اللوت مضبوط على 0.02');await req('/api/bot',{method:'POST',body:JSON.stringify({enabled,mode:'DEMO_ONLY',symbol:'XAUUSD',take_profit:0.80,stop_loss:0.80,lot:0.02,batch_size:5,interval_ms:2000,target_trades_per_minute:150})});$('message').textContent=enabled?'تم تفعيل التداول الورقي DEMO.':'تم إيقاف البوت.';await sync()}catch(e){$('message').textContent='لم يتم تغيير حالة البوت: '+e.message}finally{}}
 let titanCycleBusy=false;
 let titanCycleTimer=null;
 async function triggerTitanCycle(){
@@ -217,7 +263,7 @@ async function triggerTitanCycle(){
  try{
   const result=await req('/api/run-cycle',{method:'POST',body:JSON.stringify({})});
   const r=result.result||{};
-  $('botSub').textContent='دورة DEMO: '+(r.count??0)+' صفقة — TP/SL 0.40';
+  $('botSub').textContent='دورة DEMO: '+(r.count??0)+' صفقة — TP/SL 0.80';
   await refresh();
  }catch(e){
   $('botSub').textContent='تعذر تنفيذ دورة DEMO: '+e.message;
@@ -225,7 +271,7 @@ async function triggerTitanCycle(){
 }
 function startTitanLoop(){
  if(titanCycleTimer)clearInterval(titanCycleTimer);
- titanCycleTimer=setInterval(triggerTitanCycle,3000);
+ titanCycleTimer=setInterval(triggerTitanCycle,2000);
  triggerTitanCycle();
 }
 function stopTitanLoop(){
@@ -245,11 +291,29 @@ document.querySelectorAll('.navbtn').forEach(btn=>btn.addEventListener('click',(
  document.querySelectorAll('.navbtn').forEach(x=>x.classList.toggle('active',x===btn));
  document.getElementById('dashboardPage').classList.toggle('page-hidden',btn.dataset.page!=='dashboardPage');
  document.getElementById('monitorPage').classList.toggle('page-hidden',btn.dataset.page!=='monitorPage');
- if(btn.dataset.page==='monitorPage')refresh();
+ document.getElementById('companyPage').classList.toggle('page-hidden',btn.dataset.page!=='companyPage');
+ document.getElementById('aiPage').classList.toggle('page-hidden',btn.dataset.page!=='aiPage');
+ if(btn.dataset.page==='monitorPage')refresh(); if(btn.dataset.page==='companyPage')sync();
 }));
 $('tradeSearch').addEventListener('input',renderMonitorTrades);
 $('tradeStatus').addEventListener('change',renderMonitorTrades);
 $('monitorRefresh').onclick=refresh;
+
+function titanAnswer(q){
+ const x=q.toLowerCase();
+ if(/بيع|sell|short|هبوط|هابط/.test(x))return 'نعم، المحرك الآن يدعم الاتجاهين BUY وSELL. إذا كان EMA 9 أقل من EMA 21 فالاتجاه الهابط يحدد SELL، وإذا كان EMA 9 أعلى من EMA 21 فالاتجاه الصاعد يحدد BUY. في السوق المحايد ينتظر ولا يفرض شراءً عشوائياً.';
+ if(/شراء|buy|صعود|صاعد/.test(x))return 'إشارة BUY تظهر عندما يكون اتجاه EMA 9 أعلى من EMA 21 مع تحقق شروط الزخم وRSI. وعند ضعف الإشارة يرجع المحرك لاتجاه EMA العام. هذه قواعد تجريبية وليست توصية مالية.';
+ if(/لوت|هدف|ستوب|tp|sl|إعداد/.test(x))return 'الإعدادات الحالية: XAUUSD، لوت 0.02، هدف 0.80، وقف 0.80، خمس صفقات كحد أقصى لكل دورة، دورة مستهدفة كل ثانيتين، وسقف 25 مركزاً مفتوحاً.';
+ if(/مخاطر|خطر|خسار|risk/.test(x))return 'المحرك يقدّر مخاطرة الصفقة بافتراض عقد XAUUSD يساوي 100 أونصة لكل لوت. هذه فرضية مبسطة وقد تختلف عن مواصفات الوسيط. حد الخسارة اليومي 3% وحد مخاطرة الدفعة 0.5% من الرصيد التجريبي.';
+ if(/حساب|رصيد|صفق|حالة|status/.test(x))return 'أقدر أعرض الأرقام المسجلة من خادم DEMO في لوحة القيادة وسجل الصفقات. اضغط «تحديث البيانات» حتى تجلب أحدث الرصيد والمراكز. هذه محاكاة داخلية وليست حساب وسيط.';
+ if(/ذكاء|ai|مساعد/.test(x))return 'أنا مساعد TITAN المحلي. أجاوب تلقائياً عن إعدادات المنصة وطريقة عملها. النسخة الحالية لا تتصل بخدمة ذكاء اصطناعي خارجية ولا تتخذ قرارات تداول مستقلة.';
+ if(/سعر|بيانات|شموع|دقيقة|ثانية/.test(x))return 'مصدر المحرك الحالي شموع XAU/USD بفاصل دقيقة واحدة من Twelve Data. طلب دورة كل ثانيتين لا يعني أن السعر يتحدث كل ثانيتين؛ لهذا قد تتأخر مراقبة TP وSL.';
+ if(/مرحبا|هلا|السلام|hello/.test(x))return 'أهلاً بيك! أنا مساعد HS4GH TITAN. شنو تحب تعرف عن المحرك أو المنصة؟';
+ return 'وصلني سؤالك. أقدر حالياً أشرح إعدادات XAUUSD، الشراء والبيع، اللوت، TP/SL، المخاطر، سجل الصفقات، وحدود بيانات السوق. جرّب صياغة السؤال بشكل أوضح.';
+}
+function aiSend(){const input=$('aiInput'),q=input.value.trim();if(!q)return;const chat=$('aiChat');const user=document.createElement('div');user.className='statusbox';user.style.borderColor='#715b2b';user.innerHTML='<b style="color:#e8c66c">أنت</b><br>'+esc(q);chat.appendChild(user);const answer=document.createElement('div');answer.className='statusbox';answer.innerHTML='<b style="color:#e8c66c">TITAN AI</b><br>'+esc(titanAnswer(q));chat.appendChild(answer);input.value='';chat.scrollTop=chat.scrollHeight;}
+$('aiSend').addEventListener('click',aiSend);$('aiInput').addEventListener('keydown',e=>{if(e.key==='Enter')aiSend()});document.querySelectorAll('.aiQuick').forEach(b=>b.addEventListener('click',()=>{$('aiInput').value=b.dataset.q;aiSend()}));
+
 function tick(){const d=new Date();$('date').textContent=d.toLocaleDateString('en-GB',{weekday:'long',year:'numeric',month:'short',day:'numeric'});$('time').textContent=d.toLocaleTimeString('en-GB',{hour12:false})}
 tick();setInterval(tick,1000);refresh();sync();setInterval(refresh,30000);
 </script></body></html>
