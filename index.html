@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HS4GH TITAN | Gold Scalping Terminal</title>
+<title>HS4GH TITAN | Gold Scalping Terminal · AUTH FIX</title>
 <style>
 :root{--bg:#080d16;--panel:#101a29;--panel2:#142238;--line:#22344b;--text:#edf3fb;--muted:#8da1bb;--gold:#e5b84e;--green:#28d49a;--red:#ff647c;--blue:#6da9ff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(1000px 500px at 80% -10%,#1c3150 0%,transparent 65%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
@@ -73,15 +73,56 @@ button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1500px;mar
 </section>
 <footer class="footer"><span>HS4GH TITAN · GOLD SCALPING TERMINAL · DEMO ONLY</span><span>TradingView chart · Cloudflare Worker API · No live broker connection</span></footer>
 </main>
+
+<div id="authModal" style="display:none;position:fixed;inset:0;z-index:99999;background:#000b;align-items:center;justify-content:center;padding:18px">
+ <div style="width:min(440px,100%);background:#101a29;border:1px solid #80662e;border-radius:16px;padding:20px;color:#edf3fb;box-shadow:0 20px 70px #0009">
+  <h3 style="margin:0 0 8px">تأكيد صلاحية التحكم</h3>
+  <p style="font-size:12px;color:#aebdd0;line-height:1.8;margin:0 0 14px">أدخل API_SECRET الموجود داخل Cloudflare → Worker → Settings → Variables and Secrets. المفتاح لا يُحفظ في المتصفح.</p>
+  <input id="apiSecretInput" type="password" autocomplete="off" placeholder="API_SECRET" style="width:100%;box-sizing:border-box;background:#08111e;color:white;border:1px solid #34465e;border-radius:9px;padding:12px;margin-bottom:12px">
+  <div style="display:flex;gap:8px">
+   <button id="authConfirm" class="btn primary" style="flex:1">متابعة</button>
+   <button id="authCancel" class="btn" style="flex:1">إلغاء</button>
+  </div>
+  <div id="authError" style="color:#ff8496;font-size:11px;margin-top:10px"></div>
+ </div>
+</div>
+
 <script>
 const API='https://hs4gh-titan-bot.housammt5.workers.dev', $=id=>document.getElementById(id);
 const fmt=x=>Number.isFinite(Number(x))?Number(x).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';
-async function req(path,opts={}){const r=await fetch(API+path,{...opts,headers:{'content-type':'application/json',...(opts.headers||{})},cache:'no-store'});let j={};try{j=await r.json()}catch{}if(!r.ok||j.success===false)throw Error(j.error||('HTTP '+r.status));return j}
+
+let titanControlSecret = "";
+function askForControlSecret(){
+ return new Promise((resolve,reject)=>{
+  const modal=$('authModal'), input=$('apiSecretInput'), err=$('authError');
+  modal.style.display='flex'; input.value=''; err.textContent='';
+  const cleanup=()=>{modal.style.display='none';$('authConfirm').onclick=null;$('authCancel').onclick=null;input.onkeydown=null;};
+  $('authConfirm').onclick=()=>{const value=input.value.trim();if(!value){err.textContent='أدخل المفتاح أولاً';return;}cleanup();resolve(value);};
+  $('authCancel').onclick=()=>{cleanup();reject(new Error('تم إلغاء العملية'));};
+  input.onkeydown=(e)=>{if(e.key==='Enter')$('authConfirm').click();};
+  setTimeout(()=>input.focus(),80);
+ });
+}
+async function req(path,opts={}){
+ const headers={'content-type':'application/json',...(opts.headers||{})};
+ if(opts.method==='POST'){
+  if(!titanControlSecret)titanControlSecret=await askForControlSecret();
+  headers.Authorization='Bearer '+titanControlSecret;
+ }
+ const r=await fetch(API+path,{...opts,headers,cache:'no-store'});
+ let j={};try{j=await r.json()}catch{}
+ if(r.status===401){
+  titanControlSecret='';
+  throw new Error('رفض الخادم المفتاح. تأكد من API_SECRET في Cloudflare ثم أعد المحاولة.');
+ }
+ if(!r.ok||j.success===false)throw Error(j.error||('HTTP '+r.status));
+ return j;
+}
 function rowsOf(j){if(Array.isArray(j))return j;for(const k of ['trades','positions','data','results'])if(Array.isArray(j?.[k]))return j[k];return []}
 function renderTrades(list){$('tradeTotal').textContent=list.length+' سجل';$('trades').innerHTML=list.length?list.slice(0,40).map(t=>{const s=String(t.side||t.type||'—').toUpperCase();return `<tr><td>${t.symbol||'—'}</td><td class="${s==='BUY'?'positive':s==='SELL'?'negative':''}">${s}</td><td>${t.lot??'—'}</td><td>${fmt(t.entry)}</td><td>${fmt(t.stop_loss??t.sl)}</td><td>${fmt(t.take_profit??t.tp)}</td><td>${t.status||'—'}</td><td>${fmt(t.pnl??0)}</td></tr>`}).join(''):'<tr><td colspan="8" class="empty">لا توجد صفقات مسجلة</td></tr>'}
 async function refresh(){try{const [a,t]=await Promise.all([req('/api/account'),req('/api/trades')]);const acc=a.account||a.data||a;const bal=acc.balance??a.balance; $('balance').textContent=fmt(bal);$('equity').textContent=fmt(acc.equity??a.equity??bal);const list=rowsOf(t);$('openCount').textContent=list.filter(x=>String(x.status||'').toUpperCase()==='OPEN').length;renderTrades(list);$('connection').innerHTML='<i class="dot"></i> الخادم متصل';$('workerHealth').textContent='Cloudflare Worker: API account/trades responding';$('message').textContent='تم جلب الحساب وسجل الصفقات من الخادم.'}catch(e){$('connection').innerHTML='<i class="dot" style="background:#ff647c"></i> تعذر الاتصال';$('workerHealth').textContent='Cloudflare Worker: '+e.message;$('message').textContent='تعذر جلب البيانات: '+e.message}}
-async function sync(){try{const s=await req('/api/status');const enabled=!!(s.autoEnabled??s.enabled);$('botState').textContent=enabled?'يعمل DEMO':'متوقف';$('botState').style.color=enabled?'var(--green)':'var(--muted)';$('botSub').textContent=s.cronConfigured?'الجدولة مهيأة':'تحقق من Cron';$('message').textContent='تم تحديث حالة المحرك: '+(enabled?'البوت مفعّل':'البوت متوقف');await refresh()}catch(e){$('botState').textContent='غير مؤكد';$('botSub').textContent='تعذر قراءة حالة المحرك';$('message').textContent='مسار /api/status غير متاح أو فشل الاتصال: '+e.message}}
-async function setBot(enabled){try{await req('/api/bot',{method:'POST',body:JSON.stringify({enabled,mode:'DEMO_ONLY',symbol:'XAUUSD',take_profit:Number($('tp').value),stop_loss:Number($('sl').value),lot:Number($('lot').value),target_trades_per_minute:5})});$('message').textContent=enabled?'تم إرسال طلب تشغيل DEMO إلى الخادم.':'تم إرسال طلب إيقاف DEMO إلى الخادم.';await sync()}catch(e){$('message').textContent='لم يتم تغيير حالة البوت: '+e.message}}
+async function sync(){try{const s=await req('/api/bot');const enabled=!!(s.autoEnabled??s.enabled);$('botState').textContent=enabled?'يعمل DEMO':'متوقف';$('botState').style.color=enabled?'var(--green)':'var(--muted)';$('botSub').textContent='Cron كل دقيقة — تداول ورقي فقط';$('message').textContent='حالة المحرك: '+(enabled?'البوت مفعّل':'البوت متوقف');await refresh()}catch(e){$('botState').textContent='غير مؤكد';$('botSub').textContent='تعذر قراءة حالة المحرك';$('message').textContent='تعذر قراءة حالة البوت: '+e.message}}
+async function setBot(enabled){try{const tp=Number($('tp').value),sl=Number($('sl').value),lot=Number($('lot').value);if(tp!==0.30||sl!==0.30)throw Error('حالياً يجب أن يكون TP وSL كلاهما 0.30');if(!(lot>0&&lot<=0.05))throw Error('اللوت المسموح من 0.01 إلى 0.05');await req('/api/bot',{method:'POST',body:JSON.stringify({enabled,mode:'DEMO_ONLY',symbol:'XAUUSD',take_profit:0.30,stop_loss:0.30,lot,target_trades_per_minute:5})});$('message').textContent=enabled?'تم تفعيل التداول الورقي DEMO.':'تم إيقاف البوت.';await sync()}catch(e){$('message').textContent='لم يتم تغيير حالة البوت: '+e.message}finally{titanControlSecret='';}}
 $('refresh').onclick=refresh;$('sync').onclick=sync;$('start').onclick=()=>setBot(true);$('stop').onclick=()=>setBot(false);
 function tick(){const d=new Date();$('date').textContent=d.toLocaleDateString('en-GB',{weekday:'long',year:'numeric',month:'short',day:'numeric'});$('time').textContent=d.toLocaleTimeString('en-GB',{hour12:false})}
 tick();setInterval(tick,1000);refresh();sync();setInterval(refresh,30000);
