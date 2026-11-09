@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HS4GH TITAN | Gold Scalping Terminal · AUTH FIX</title>
+<title>HS4GH TITAN | DEMO 3s Update</title>
 <style>
 :root{--bg:#080d16;--panel:#101a29;--panel2:#142238;--line:#22344b;--text:#edf3fb;--muted:#8da1bb;--gold:#e5b84e;--green:#28d49a;--red:#ff647c;--blue:#6da9ff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(1000px 500px at 80% -10%,#1c3150 0%,transparent 65%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
@@ -18,6 +18,20 @@ button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1500px;mar
 .bottom{display:grid;grid-template-columns:1.3fr .7fr;gap:13px;margin-top:13px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:620px}th,td{padding:11px 8px;border-bottom:1px solid #24364b;text-align:right;font-size:10px;white-space:nowrap}th{color:var(--muted);font-weight:600}td{color:#dce7f5}.empty{text-align:center;color:var(--muted);padding:22px}.positive{color:var(--green)}.negative{color:var(--red)}.notice{border:1px solid #70592d;background:#292315;color:#e9d7a8;padding:12px;border-radius:11px;font-size:10px;line-height:1.9;margin-top:12px}.footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#627791;font-size:9px;padding:18px 4px}
 @media(max-width:950px){.layout,.bottom{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.chartwrap{height:470px}}
 @media(max-width:520px){.app{padding:10px}.hero{padding:19px 3px 14px}.hero h2{font-size:21px}.metrics{gap:8px}.metric{padding:12px}.metric strong{font-size:20px}.chartwrap{height:420px}.clock{display:none}.card{padding:12px}}
+
+.page-nav{display:flex;gap:8px;margin:14px 0 4px;flex-wrap:wrap}
+.navbtn{border:1px solid var(--line);background:#101a29;color:var(--muted);padding:10px 16px;border-radius:10px;font-size:12px}
+.navbtn.active{background:#2b2416;border-color:#80662e;color:var(--gold)}
+.page-hidden{display:none!important}
+.monitor-metrics{margin-top:10px}
+.monitor-chart-card,.monitor-table-card{margin-top:13px}
+.monitor-chart{height:500px}
+.monitor-filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+.monitor-filters input,.monitor-filters select{background:#0b1523;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:10px;min-width:180px}
+.monitor-table{min-width:1050px}
+.monitor-table td:first-child{font-family:ui-monospace,monospace;color:#9fb5d2}
+@media(max-width:520px){.monitor-chart{height:390px}.monitor-filters>*{width:100%}}
+
 </style>
 </head>
 <body><main class="app">
@@ -25,6 +39,12 @@ button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1500px;mar
  <div class="brand"><div class="logo">T</div><div><h1>HS4GH TITAN</h1><small>GOLD SCALPING COMMAND CENTER</small></div></div>
  <div class="topright"><span class="pill demo"><i class="dot"></i> DEMO ONLY</span><span class="pill" id="connection"><i class="dot" style="background:#e5b84e"></i> جاري فحص الخادم</span><button class="btn" id="refresh">تحديث البيانات ↻</button></div>
 </header>
+
+<nav class="page-nav">
+ <button class="navbtn active" data-page="dashboardPage">لوحة القيادة</button>
+ <button class="navbtn" data-page="monitorPage">مراقبة الصفقات</button>
+</nav>
+<div id="dashboardPage">
 <section class="hero"><div><div class="eyebrow">TITAN / XAUUSD / AUTOMATED PAPER TRADING</div><h2>مركز قيادة سكالبينغ الذهب</h2><p>شارت TradingView مباشر، إعدادات البوت، ومتابعة الصفقات التجريبية من لوحة واحدة.</p></div><div class="clock"><div id="date">—</div><strong id="time">—</strong></div></section>
 <section class="metrics">
  <div class="metric"><label>رصيد DEMO</label><strong id="balance">—</strong><small>USD · من خادم TITAN</small></div>
@@ -50,19 +70,19 @@ button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1500px;mar
    <div class="settinggrid">
     <div class="field"><label>الرمز</label><input value="XAUUSD · GOLD" readonly></div>
     <div class="field"><label>نوع الاستراتيجية</label><input value="Scalping" readonly></div>
-    <div class="field"><label>Take Profit · حركة السعر</label><input id="tp" type="number" value="0.30" step="0.01"></div>
-    <div class="field"><label>Stop Loss · حركة السعر</label><input id="sl" type="number" value="0.30" step="0.01"></div>
-    <div class="field"><label>الهدف التشغيلي / دقيقة</label><input value="5 صفقات" readonly></div>
+    <div class="field"><label>Take Profit · حركة السعر</label><input id="tp" type="number" value="0.40" step="0.01"></div>
+    <div class="field"><label>Stop Loss · حركة السعر</label><input id="sl" type="number" value="0.40" step="0.01"></div>
+    <div class="field"><label>الهدف التشغيلي / دقيقة</label><input value="صفقتان / 3 ثوانٍ" readonly></div>
     <div class="field"><label>حجم اللوت</label><input id="lot" type="number" value="0.01" min="0.01" step="0.01"></div>
    </div>
-   <div class="statusbox" style="margin-top:11px">الهدف التشغيلي: محاولة إنشاء حتى 5 صفقات تجريبية بالدقيقة. قد لا تتوفر فرص أو قد تمنعها حدود المحرك. لا يوجد ضمان لعدد ثابت من الصفقات أو للربح.</div>
+   <div class="statusbox" style="margin-top:11px">الهدف التشغيلي: محاولة إنشاء صفقتان تجريبيتان كل 3 ثوانٍ أثناء بقاء الصفحة مفتوحة. قد لا تتوفر فرص أو قد تمنعها حدود المحرك. لا يوجد ضمان لعدد ثابت من الصفقات أو للربح.</div>
    <div class="actions" style="margin-top:11px"><button class="btn primary" id="start">تشغيل البوت DEMO</button><button class="btn danger" id="stop">إيقاف البوت</button></div>
    <button class="btn" id="sync" style="width:100%;margin-top:8px">مزامنة حالة المحرك</button>
    <div class="statusbox" id="message" style="margin-top:10px">لم يتم التحقق من اتصال المحرك بعد.</div>
   </article>
   <article class="card">
    <div class="head"><h3>مواصفات التنفيذ</h3><span class="tag">CONFIG</span></div>
-   <div class="two"><div class="statusbox">TP<br><strong style="color:var(--green)">+0.30</strong></div><div class="statusbox">SL<br><strong style="color:var(--red)">−0.30</strong></div></div>
+   <div class="two"><div class="statusbox">TP<br><strong style="color:var(--green)">+0.40</strong></div><div class="statusbox">SL<br><strong style="color:var(--red)">−0.40</strong></div></div>
    <div class="statusbox" style="margin-top:9px">البيئة: DEMO داخلي فقط<br>الأداة: الذهب XAUUSD<br>الأسلوب: صفقات قصيرة وسريعة<br>الشارت: TradingView</div>
   </article>
  </aside>
@@ -71,6 +91,40 @@ button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1500px;mar
  <article class="card"><div class="head"><h3>سجل الصفقات التجريبية</h3><span class="tag" id="tradeTotal">0 صفقة</span></div><div class="tablewrap"><table><thead><tr><th>الرمز</th><th>الاتجاه</th><th>اللوت</th><th>الدخول</th><th>SL</th><th>TP</th><th>الحالة</th><th>P/L</th></tr></thead><tbody id="trades"><tr><td colspan="8" class="empty">بانتظار بيانات الصفقات</td></tr></tbody></table></div></article>
  <article class="card"><div class="head"><h3>حالة النظام</h3><span class="tag">SYSTEM HEALTH</span></div><div class="stack"><div class="statusbox" id="workerHealth">Cloudflare Worker: لم يتم الفحص</div><div class="statusbox">TradingView: مضمّن داخل الشارت</div><div class="statusbox">التنفيذ: محاكاة داخلية فقط، ليس MT5 ولا JustMarkets</div><div class="statusbox">ملاحظة: تغيير TP/SL/اللوت هنا لا يغيّر إعدادات الخادم إلا إذا دعم الـ API ذلك صراحةً.</div></div></article>
 </section>
+
+</div>
+<section id="monitorPage" class="page-hidden">
+ <div class="hero"><div><div class="eyebrow">TITAN / LIVE PAPER POSITIONS</div><h2>مركز مراقبة الصفقات</h2><p>متابعة تفصيلية للصفقات المفتوحة والمغلقة مع شارت إضافي للذهب.</p></div></div>
+ <section class="metrics monitor-metrics">
+  <div class="metric"><label>إجمالي الصفقات المعروضة</label><strong id="monTotal">—</strong><small>Trade records</small></div>
+  <div class="metric"><label>صفقات مفتوحة</label><strong id="monOpen">—</strong><small>Open</small></div>
+  <div class="metric"><label>صفقات مغلقة</label><strong id="monClosed">—</strong><small>Closed</small></div>
+  <div class="metric"><label>صافي P/L المسجل</label><strong id="monPnl">—</strong><small>USD · paper account</small></div>
+ </section>
+ <article class="card monitor-chart-card">
+  <div class="head"><h3>ADDITIONAL MARKET CHART · XAUUSD</h3><span class="tag">TRADINGVIEW · 5 MIN</span></div>
+  <div class="charttools"><span class="pill">XAUUSD · GOLD</span><span class="pill">5 MINUTE</span><span class="pill">شارت المراقبة</span></div>
+  <div class="chartwrap monitor-chart"><div class="tradingview-widget-container">
+   <div class="tradingview-widget-container__widget"></div>
+   <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+   {"autosize":true,"symbol":"OANDA:XAUUSD","interval":"5","timezone":"Asia/Baghdad","theme":"dark","style":"1","locale":"en","enable_publishing":false,"allow_symbol_change":true,"calendar":false,"support_host":"https://www.tradingview.com"}
+   </script>
+  </div></div>
+ </article>
+ <article class="card monitor-table-card">
+  <div class="head"><h3>مراقبة جميع الصفقات</h3><span class="tag" id="monitorUpdated">بانتظار التحديث</span></div>
+  <div class="monitor-filters">
+   <input id="tradeSearch" placeholder="ابحث برقم الصفقة أو الاتجاه..." />
+   <select id="tradeStatus"><option value="ALL">كل الحالات</option><option value="OPEN">مفتوحة</option><option value="CLOSED">مغلقة</option></select>
+   <button class="btn" id="monitorRefresh">تحديث السجل ↻</button>
+  </div>
+  <div class="tablewrap"><table class="monitor-table"><thead><tr>
+   <th>معرّف الصفقة</th><th>الرمز</th><th>الاتجاه</th><th>اللوت</th><th>سعر الدخول</th><th>وقف الخسارة</th><th>الهدف</th><th>الحالة</th><th>الربح/الخسارة</th><th>وقت الفتح</th><th>وقت الإغلاق</th>
+  </tr></thead><tbody id="monitorTrades"><tr><td colspan="11" class="empty">بانتظار بيانات الصفقات</td></tr></tbody></table></div>
+ </article>
+ <div class="notice">هذه بيانات محاكاة داخلية من قاعدة D1 وليست صفقات وسيط حقيقي. الشارت الثاني من TradingView وقد يختلف سعره عن مزود بيانات المحرك.</div>
+</section>
+
 <footer class="footer"><span>HS4GH TITAN · GOLD SCALPING TERMINAL · DEMO ONLY</span><span>TradingView chart · Cloudflare Worker API · No live broker connection</span></footer>
 </main>
 
@@ -119,11 +173,83 @@ async function req(path,opts={}){
  return j;
 }
 function rowsOf(j){if(Array.isArray(j))return j;for(const k of ['trades','positions','data','results'])if(Array.isArray(j?.[k]))return j[k];return []}
-function renderTrades(list){$('tradeTotal').textContent=list.length+' سجل';$('trades').innerHTML=list.length?list.slice(0,40).map(t=>{const s=String(t.side||t.type||'—').toUpperCase();return `<tr><td>${t.symbol||'—'}</td><td class="${s==='BUY'?'positive':s==='SELL'?'negative':''}">${s}</td><td>${t.lot??'—'}</td><td>${fmt(t.entry)}</td><td>${fmt(t.stop_loss??t.sl)}</td><td>${fmt(t.take_profit??t.tp)}</td><td>${t.status||'—'}</td><td>${fmt(t.pnl??0)}</td></tr>`}).join(''):'<tr><td colspan="8" class="empty">لا توجد صفقات مسجلة</td></tr>'}
-async function refresh(){try{const [a,t]=await Promise.all([req('/api/account'),req('/api/trades')]);const acc=a.account||a.data||a;const bal=acc.balance??a.balance; $('balance').textContent=fmt(bal);$('equity').textContent=fmt(acc.equity??a.equity??bal);const list=rowsOf(t);$('openCount').textContent=list.filter(x=>String(x.status||'').toUpperCase()==='OPEN').length;renderTrades(list);$('connection').innerHTML='<i class="dot"></i> الخادم متصل';$('workerHealth').textContent='Cloudflare Worker: API account/trades responding';$('message').textContent='تم جلب الحساب وسجل الصفقات من الخادم.'}catch(e){$('connection').innerHTML='<i class="dot" style="background:#ff647c"></i> تعذر الاتصال';$('workerHealth').textContent='Cloudflare Worker: '+e.message;$('message').textContent='تعذر جلب البيانات: '+e.message}}
-async function sync(){try{const s=await req('/api/bot');const enabled=!!(s.autoEnabled??s.enabled);$('botState').textContent=enabled?'يعمل DEMO':'متوقف';$('botState').style.color=enabled?'var(--green)':'var(--muted)';$('botSub').textContent='Cron كل دقيقة — تداول ورقي فقط';$('message').textContent='حالة المحرك: '+(enabled?'البوت مفعّل':'البوت متوقف');await refresh()}catch(e){$('botState').textContent='غير مؤكد';$('botSub').textContent='تعذر قراءة حالة المحرك';$('message').textContent='تعذر قراءة حالة البوت: '+e.message}}
-async function setBot(enabled){try{const tp=Number($('tp').value),sl=Number($('sl').value),lot=Number($('lot').value);if(tp!==0.30||sl!==0.30)throw Error('حالياً يجب أن يكون TP وSL كلاهما 0.30');if(!(lot>0&&lot<=0.05))throw Error('اللوت المسموح من 0.01 إلى 0.05');await req('/api/bot',{method:'POST',body:JSON.stringify({enabled,mode:'DEMO_ONLY',symbol:'XAUUSD',take_profit:0.30,stop_loss:0.30,lot,target_trades_per_minute:5})});$('message').textContent=enabled?'تم تفعيل التداول الورقي DEMO.':'تم إيقاف البوت.';await sync()}catch(e){$('message').textContent='لم يتم تغيير حالة البوت: '+e.message}finally{titanControlSecret='';}}
-$('refresh').onclick=refresh;$('sync').onclick=sync;$('start').onclick=()=>setBot(true);$('stop').onclick=()=>setBot(false);
+let allTrades=[];
+function esc(v){return String(v??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function renderTrades(list){
+ allTrades=list;
+ $('tradeTotal').textContent=list.length+' سجل';
+ $('trades').innerHTML=list.length?list.slice(0,40).map(t=>{
+  const s=String(t.side||t.type||'—').toUpperCase();
+  return `<tr><td>${esc(t.symbol||'—')}</td><td class="${s==='BUY'?'positive':s==='SELL'?'negative':''}">${esc(s)}</td><td>${esc(t.lot)}</td><td>${fmt(t.entry)}</td><td>${fmt(t.stop_loss??t.sl)}</td><td>${fmt(t.take_profit??t.tp)}</td><td>${esc(t.status)}</td><td>${fmt(t.pnl??0)}</td></tr>`;
+ }).join(''):'<tr><td colspan="8" class="empty">لا توجد صفقات مسجلة</td></tr>';
+ renderMonitorTrades();
+}
+function renderMonitorTrades(){
+ const q=($('tradeSearch')?.value||'').toLowerCase();
+ const status=$('tradeStatus')?.value||'ALL';
+ const filtered=allTrades.filter(t=>{
+  const st=String(t.status||'').toUpperCase();
+  const hay=[t.id,t.symbol,t.side,t.status].join(' ').toLowerCase();
+  return (status==='ALL'||st===status)&&hay.includes(q);
+ });
+ const open=allTrades.filter(t=>String(t.status).toUpperCase()==='OPEN').length;
+ const closed=allTrades.filter(t=>String(t.status).toUpperCase()==='CLOSED').length;
+ const pnl=allTrades.reduce((n,t)=>n+Number(t.pnl||0),0);
+ $('monTotal').textContent=allTrades.length;
+ $('monOpen').textContent=open;
+ $('monClosed').textContent=closed;
+ $('monPnl').textContent=fmt(pnl);
+ $('monPnl').className=pnl>=0?'positive':'negative';
+ $('monitorUpdated').textContent='آخر تحديث: '+new Date().toLocaleTimeString('ar-IQ');
+ $('monitorTrades').innerHTML=filtered.length?filtered.map(t=>{
+  const side=String(t.side||'—').toUpperCase(), st=String(t.status||'—').toUpperCase();
+  return `<tr><td title="${esc(t.id)}">${esc(String(t.id||'—').slice(0,12))}</td><td>${esc(t.symbol)}</td><td class="${side==='BUY'?'positive':side==='SELL'?'negative':''}">${esc(side)}</td><td>${esc(t.lot)}</td><td>${fmt(t.entry)}</td><td>${fmt(t.stop_loss)}</td><td>${fmt(t.take_profit)}</td><td>${esc(st)}</td><td class="${Number(t.pnl||0)>=0?'positive':'negative'}">${fmt(t.pnl||0)}</td><td>${esc(t.opened_at||'—')}</td><td>${esc(t.closed_at||'—')}</td></tr>`;
+ }).join(''):'<tr><td colspan="11" class="empty">لا توجد صفقات مطابقة</td></tr>';
+}
+async function refresh(){try{const [a,t]=await Promise.all([req('/api/account'),req('/api/trades')]);const acc=a.account||a.data||a;const bal=acc.balance??a.balance; $('balance').textContent=fmt(bal);$('equity').textContent=fmt(acc.equity??a.equity??bal);const list=rowsOf(t);$('openCount').textContent=list.filter(x=>String(x.status||'').toUpperCase()==='OPEN').length;renderTrades(list);$('connection').innerHTML='<i class="dot"></i> الخادم متصل';$('workerHealth').textContent='Cloudflare Worker: API account/trades responding';$('message').textContent=''}catch(e){$('connection').innerHTML='<i class="dot" style="background:#ff647c"></i> تعذر الاتصال';$('workerHealth').textContent='Cloudflare Worker: '+e.message;$('message').textContent='تعذر جلب البيانات: '+e.message}}
+async function sync(){try{const s=await req('/api/bot');const enabled=!!(s.autoEnabled??s.enabled);$('botState').textContent=enabled?'يعمل DEMO':'متوقف';$('botState').style.color=enabled?'var(--green)':'var(--muted)';$('botSub').textContent='صفقتان تجريبيتان كل 3 ثوانٍ — الصفحة يجب أن تبقى مفتوحة';$('botSub').textContent=enabled?'صفقتان تجريبيتان كل 3 ثوانٍ أثناء بقاء الصفحة مفتوحة':'البوت متوقف';await refresh()}catch(e){$('botState').textContent='غير مؤكد';$('botSub').textContent='تعذر قراءة حالة المحرك';$('message').textContent='تعذر قراءة حالة البوت: '+e.message}}
+async function setBot(enabled){try{const tp=Number($('tp').value),sl=Number($('sl').value),lot=Number($('lot').value);if(tp!==0.40||sl!==0.40)throw Error('حالياً يجب أن يكون TP وSL كلاهما 0.40');if(!(lot>0&&lot<=0.05))throw Error('اللوت المسموح من 0.01 إلى 0.05');await req('/api/bot',{method:'POST',body:JSON.stringify({enabled,mode:'DEMO_ONLY',symbol:'XAUUSD',take_profit:0.40,stop_loss:0.40,lot,target_trades_per_minute:40})});$('message').textContent=enabled?'تم تفعيل التداول الورقي DEMO.':'تم إيقاف البوت.';await sync()}catch(e){$('message').textContent='لم يتم تغيير حالة البوت: '+e.message}finally{}}
+let titanCycleBusy=false;
+let titanCycleTimer=null;
+async function triggerTitanCycle(){
+ if(titanCycleBusy)return;
+ titanCycleBusy=true;
+ try{
+  const result=await req('/api/run-cycle',{method:'POST',body:JSON.stringify({})});
+  const r=result.result||{};
+  $('botSub').textContent='دورة DEMO: '+(r.count??0)+' صفقة — TP/SL 0.40';
+  await refresh();
+ }catch(e){
+  $('botSub').textContent='تعذر تنفيذ دورة DEMO: '+e.message;
+ }finally{titanCycleBusy=false;}
+}
+function startTitanLoop(){
+ if(titanCycleTimer)clearInterval(titanCycleTimer);
+ titanCycleTimer=setInterval(triggerTitanCycle,3000);
+ triggerTitanCycle();
+}
+function stopTitanLoop(){
+ if(titanCycleTimer){clearInterval(titanCycleTimer);titanCycleTimer=null;}
+}
+const oldSync=sync;
+sync=async function(){
+ await oldSync();
+ const enabled=$('botState').textContent.includes('يعمل');
+ if(enabled){if(!titanCycleTimer)startTitanLoop();}
+ else stopTitanLoop();
+};
+$('refresh').onclick=refresh;$('sync').onclick=sync;
+$('start').onclick=async()=>{await setBot(true);if($('botState').textContent.includes('يعمل'))startTitanLoop();};
+$('stop').onclick=async()=>{await setBot(false);stopTitanLoop();};
+document.querySelectorAll('.navbtn').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.navbtn').forEach(x=>x.classList.toggle('active',x===btn));
+ document.getElementById('dashboardPage').classList.toggle('page-hidden',btn.dataset.page!=='dashboardPage');
+ document.getElementById('monitorPage').classList.toggle('page-hidden',btn.dataset.page!=='monitorPage');
+ if(btn.dataset.page==='monitorPage')refresh();
+}));
+$('tradeSearch').addEventListener('input',renderMonitorTrades);
+$('tradeStatus').addEventListener('change',renderMonitorTrades);
+$('monitorRefresh').onclick=refresh;
 function tick(){const d=new Date();$('date').textContent=d.toLocaleDateString('en-GB',{weekday:'long',year:'numeric',month:'short',day:'numeric'});$('time').textContent=d.toLocaleTimeString('en-GB',{hour12:false})}
 tick();setInterval(tick,1000);refresh();sync();setInterval(refresh,30000);
 </script></body></html>
